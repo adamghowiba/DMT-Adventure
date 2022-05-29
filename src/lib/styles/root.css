@@ -1,0 +1,118 @@
+:root {
+	/*-----COLORS-----*/
+	--color-primary: #9c59df;
+	--color-secondary: #3f3d56;
+	--color-white: #fdfdfd;
+	--color-offwhite: #f4f4f4;
+	--color-trans: rgb(150, 150, 150, 0.25);
+	--color-blue: #2474de;
+	--color-midnight: #121721;
+
+	/* shades */
+	--color-gray-dark: #434859;
+	--color-gray-muted: #8b9199;
+	--color-gray-light: #c1c7d0;
+
+	/* state colors */
+	--color-green: #018a06;
+	--color-yellow: #f4de19;
+	--color-red: #e2445c;
+
+	/* test colors */
+	--color-text-body: #434859;
+	--color-text-heading: #172b4d;
+
+	/* Deprecated not used */
+	/* --color-text-muted-light: #828282; */
+
+	/* SHADOWS */
+	--shadow-image: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+
+	/* ----- TYPOGRAPHY ------*/
+	--font-family: 'Poppins', sans-serif;
+
+	/* headings */
+	--text-h1: 34.2px;
+	--text-h2: 27.3px;
+	--text-h3: 21.9px;
+	--text-h4: 17.5px;
+	--text-h5: 14px;
+	--text-h6: 12px;
+
+	--text-base: 14px;
+	--text-base-lg: 16px;
+	--text-button: 14px;
+	--text-sm: 12px;
+
+	--fw-light: 300;
+	--fw-regular: 400;
+	--fw-medium: 500;
+	--fw-semi-bold: 600;
+	--fw-bold: 700;
+	--fw-extra-bold: 800;
+
+	/* BORDER RADIUS */
+	--br-sm: 5px;
+	--br-lg: 7px;
+
+	/* LINE HEIGHT */
+	--line-sm: 1.2;
+	--line-base: 1.5;
+	--line-md: 1.65;
+	--line-lg: 2;
+	--line-xl: 2.5;
+
+	/* SPACING */
+	--space-3xs: 4px;
+	--space-2xs: 8px;
+	--space-xs: 16px;
+	--space-sm: 24px;
+	--space-md: 32px;
+	--space-lg: 40px;
+	--space-xl: 56px;
+	--space-2xl: 64px;
+	--space-3xl: 72px;
+	--space-4xl: 80px;
+	--space-5xl: 88px;
+	--space-6xl: 160px;
+	--space-7xl: 216px;
+
+	--space-section-sm: 64px;
+	--space-section-base: 96px;
+	--space-section-md: 216px;
+	--space-section-lg: 304px;
+	--space-section-xl: 520px;
+}
+
+/* LAPTOP */
+@media screen and (max-width: 1024) {
+}
+
+/* LAPTOP */
+@media screen and (max-width: 768px) {
+	:root {
+		--text-title: 50px;
+		--space-section-base: 100px;
+		--space-section-sm: 46px;
+	}
+}
+
+@media screen and (max-width: 597px) {
+	:root {
+		--space-section-base: 90px;
+		--space-section-md: 120px;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	:root {
+		/* SPACING */
+		--space-sm: 16px;
+		--space-md: 24px;
+		--space-lg: 32px;
+
+		--space-xl: 40px;
+		--space-2xl: 56px;
+		--space-3xl: 64px;
+	}
+}
