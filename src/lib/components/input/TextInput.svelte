@@ -67,9 +67,10 @@
 		border-radius: var(--borderRadius, var(--br-lg));
 		border: 1px solid var(--color-gray-light);
 		outline: none;
-		font-size: 16px;
+		font-size: var(--text-base-lg);
 		height: 50px;
 		transition: border 0.1s ease-out;
+		color: var(--color-text-body);
 
 		&:focus {
 			border: 1px solid var(--color-primary);

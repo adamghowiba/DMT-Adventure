@@ -1,15 +1,26 @@
 <script lang="ts">
 	import TextInput from '$lib/components/input/TextInput.svelte';
+	import { PLACES } from '$lib/constants/places';
 	import DataTable from '$lib/dashboard/datatable/DataTable.svelte';
+	import type { Place } from '$lib/types/listing';
 	import type { DataTableCol } from '$lib/types/table';
 
 	export let searchValue: string = '';
+
+	const transformListingData = (places: Place[]) => {
+		return places.map(({ title, rooms, address, listingStatus, id }) => ({
+			title: { href: `/dashboard/listing/${id}/details`, name: title },
+			address: `${address?.state}, ${address?.city}`,
+			status: listingStatus || 'not set',
+			rooms: rooms.length,
+		}));
+	};
 
 	const COLUMNS: DataTableCol[] = [
 		{
 			headerName: 'Listing',
 			type: 'string',
-			feild: 'listing'
+			feild: 'title'
 		},
 		{
 			headerName: 'status',
@@ -24,33 +35,14 @@
 		{
 			headerName: 'location',
 			type: 'string',
-			feild: 'location'
+			feild: 'address'
 		}
 	];
 
-	const ROWS = [
-		{
-			listing: { href: '/dashboard/listing/1231241', name: 'Hilton grand hotel & suites' },
-			status: 'In progress',
-			rooms: 1,
-			location: 'Marco island naples'
-		},
-		{
-            listing: { href: '/dashboard/listing/1231241', name: 'Grand Vista Hotel' },
-			status: 'In progress',
-			rooms: 1,
-			location: 'Marco island naples'
-		},
-		{
-            listing: { href: '/dashboard/listing/1231241', name: 'Trekking through Naples' },
-			status: 'In progress',
-			rooms: 1,
-			location: 'Marco island naples'
-		}
-	];
+	const ROWS = transformListingData(PLACES);
 
 	$: filteredRows = searchValue
-		? ROWS.filter((row) => row.listing.name.toLowerCase().includes(searchValue.toLowerCase()))
+		? ROWS.filter((row) => row.title.name.toLowerCase().includes(searchValue.toLowerCase()))
 		: ROWS;
 </script>
 

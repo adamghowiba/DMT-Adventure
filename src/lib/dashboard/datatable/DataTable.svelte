@@ -11,7 +11,7 @@
 
 	export let expandable: boolean = false;
 	export let selectable: boolean = false;
-	export let disableSelectionOnClick: boolean = false;
+	export let disableSelectionOnClick: boolean = true;
 	export let columns: DataTableCol[] = [];
 	export let rows: { [key: string]: any }[] = [];
 
@@ -128,18 +128,27 @@
 	};
 
 	const formatData = () => {
-		const data = rows.map((data) => {
-			const rowItem = Object.entries(columns).reduce((acc, [k, v], i) => {
-				if (data['link']) acc[columns[i].feild] = data[columns[i].feild] || '';
+		// const data = rows.map((data) => {
+		// 	const rowItem = Object.entries(columns).reduce((acc, [k, v], i) => {
+		// 		if (data['link']) acc[columns[i].feild] = data[columns[i].feild] || '';
+		// 		return acc;
+		// 	}, {});
+
+		// 	return rowItem;
+		// }, []);
+
+		const columnData = rows.map((data) => {
+			return columns.reduce((acc: any, curr) => {
+				if (data[curr.feild]) acc[curr.feild] = data[curr.feild];
 				return acc;
 			}, {});
+		});
 
-			return rowItem;
-		}, []);
-
-		return data;
+		console.log(columnData);
+		return columnData;
 	};
 
+	$: rows = formatData();
 	$: rowStart = page * rowsPerPage;
 	$: rowEnd = (page + 1) * rowsPerPage;
 </script>
@@ -189,14 +198,7 @@
 						</TableCell>
 					{/if}
 
-					{#if expandable}
-						<TableCell width="0px">
-							<button data-row={realtiveIndex} on:click={handleExpandClick}>O</button>
-						</TableCell>
-					{/if}
-
 					<!-- Tabel Data  -->
-
 					{#each Object.values(row) as data, j}
 						<TableCell>
 							{#if data instanceof Object}
@@ -211,24 +213,6 @@
 						</TableCell>
 					{/each}
 				</TableRow>
-
-				{#if expandedRows.indexOf(realtiveIndex) > -1}
-					<!-- {#if i === 0} -->
-					<tr>
-						<td class="dropdown" colspan={columns.length + 1}>
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia maxime totam
-								maiores, ab voluptate, architecto accusamus consequatur beatae commodi vel fuga,
-								iure optio? Provident quos ab suscipit quisquam harum reprehenderit!
-							</p>
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia maxime totam
-								maiores, ab voluptate, architecto accusamus consequatur beatae commodi vel fuga,
-								iure optio? Provident quos ab suscipit quisquam harum reprehenderit!
-							</p>
-						</td>
-					</tr>
-				{/if}
 			{/each}
 		</TableBody>
 	</Table>
@@ -236,12 +220,6 @@
 </div>
 
 <style lang="scss">
-	.dropdown {
-		display: table-cell;
-		// padding: 30px 15px;
-		height: 200px;
-		white-space: normal;
-	}
 	input {
 		width: 17px;
 		margin: 0;

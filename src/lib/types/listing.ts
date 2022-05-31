@@ -10,7 +10,18 @@ export interface Listing {
 	imgSrc: string;
 	availableCount?: number;
 	review?: Review[]
+	listingStatus?: ListingStatus;
+	address?: Address;
 }
+
+export interface Address {
+	street: string;
+	city: string;
+	state: string;
+	zip: string;
+}
+
+export type ListingStatus = 'unlisted' | 'listed' | 'deactivate';
 
 export type BedType = 'king' | 'queen' | 'twin';
 

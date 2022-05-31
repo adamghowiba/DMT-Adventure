@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ListingBar from '$lib/dashboard/listing/ListingBar.svelte';
-	import { listingStore } from '$lib/stores/listingNav-store';
 </script>
 
 <main>

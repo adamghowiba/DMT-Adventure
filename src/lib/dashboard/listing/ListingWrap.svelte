@@ -7,6 +7,7 @@
 	import { getContext } from 'svelte';
 
 	export let title: string;
+	export let gap: boolean = true;
 	let wrapperElement: HTMLElement;
 
 	const navGroup = getContext<ListingNavGroups>('navGroup');
@@ -21,7 +22,7 @@
 	}
 </script>
 
-<div class="wrapper" bind:this={wrapperElement}>
+<div class="wrapper" bind:this={wrapperElement} class:gap>
 	<h4>{title}</h4>
 	<div class="wrapper__content">
 		<slot />
@@ -32,7 +33,11 @@
 	.wrapper {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-sm);
+		gap: var(--space-2xs);
+
+		&.gap {
+			gap: var(--space-sm);
+		}
 
 		&__content {
 			display: flex;

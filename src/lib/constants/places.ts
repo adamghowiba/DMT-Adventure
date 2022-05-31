@@ -12,6 +12,13 @@ export const PLACES: Place[] = [
 		total: 212,
 		subtotal: 181,
 		imgSrc: '/images/global/galleria_umberto.png',
+		listingStatus: 'listed',
+		address: {
+			state: 'Florida',
+			city: 'Longwood',
+			street: '1020 Waverly Dr.',
+			zip: '32750'
+		},
 		rooms: [
 			{
 				id: 5123123,
@@ -54,6 +61,13 @@ export const PLACES: Place[] = [
 		total: 212,
 		subtotal: 181,
 		imgSrc: '/images/global/cappella.png',
+		listingStatus: 'unlisted',
+		address: {
+			state: 'Florida',
+			city: 'Longwood',
+			street: '1020 Waverly Dr.',
+			zip: '32750'
+		},
 		rooms: [
 			{
 				id: 5123123,
@@ -96,6 +110,12 @@ export const PLACES: Place[] = [
 		total: 212,
 		subtotal: 181,
 		imgSrc: '/images/global/castel_ovo.png',
+		address: {
+			state: 'Florida',
+			city: 'Longwood',
+			street: '1020 Waverly Dr.',
+			zip: '32750'
+		},
 		rooms: [
 			{
 				id: 92524234,

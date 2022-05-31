@@ -1,19 +1,25 @@
 <script lang="ts">
 	import Hr from '$lib/components/global/HR.svelte';
+	import TextArea from '$lib/components/input/TextArea.svelte';
 	import TextInput from '$lib/components/input/TextInput.svelte';
 	import FormWrapper from '../../FormWrapper.svelte';
 	import InputWrapper from '../../InputWrapper.svelte';
 
 	export let title: string = 'Listing description';
 
-	export let inputs = {
+	interface DataInputs {
+		description?: string;
+		space?: string;
+	}
+
+	export let inputs: DataInputs = {
 		description: '',
 		space: ''
 	};
 
 	let inputsClone = { ...inputs };
 
-	const updateData = (data: { description: string; space: string }) => {
+	const updateData = (data: DataInputs) => {
 		console.log('Updating data to', data.description, data.space);
 		inputs = { ...inputsClone };
 	};
@@ -33,7 +39,8 @@
 			{title}
 			description="Give guests a sense of what it's like to stay at your place, including why they'll love staying there."
 		>
-			<TextInput name="" bind:value={inputsClone.description} />
+			<TextArea bind:value={inputsClone.description} />
+			<!-- <TextInput name="" bind:value={inputsClone.description} /> -->
 		</InputWrapper>
 
 		<Hr />
@@ -42,7 +49,8 @@
 			title="The space"
 			description="Provide a general description of what the property and rooms are like so guests know what to expect."
 		>
-			<TextInput name="" bind:value={inputsClone.space} />
+			<TextArea bind:value={inputsClone.space} />
+			<!-- <TextInput name="" bind:value={inputsClone.space} /> -->
 		</InputWrapper>
 	</div>
 </FormWrapper>
