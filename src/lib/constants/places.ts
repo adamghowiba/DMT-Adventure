@@ -9,10 +9,11 @@ export const PLACES: Place[] = [
 		desc: 'Incredible Sea Views, 3 different Pools, Newly renovated rooms.',
 		rating: 4.9,
 		ratingTotal: 120,
-		total: 212,
+		total: 150,
 		subtotal: 181,
 		imgSrc: '/images/global/galleria_umberto.png',
 		listingStatus: 'listed',
+		coords: [27.717245, 85.323959],
 		address: {
 			state: 'Florida',
 			city: 'Longwood',
@@ -30,7 +31,9 @@ export const PLACES: Place[] = [
 				],
 				price: 282,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 321313,
@@ -38,7 +41,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 1, type: 'king' }],
 				price: 132,
 				quantity: 3,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 39278137,
@@ -46,7 +51,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 2, type: 'king' }],
 				price: 150,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			}
 		],
 		review: REVIEWS
@@ -58,8 +65,9 @@ export const PLACES: Place[] = [
 		desc: 'Incredible Sea Views, 3 different Pools, Newly renovated rooms.',
 		rating: 4.9,
 		ratingTotal: 120,
-		total: 212,
+		total: 200,
 		subtotal: 181,
+		coords: [27.742245, 85.343959],
 		imgSrc: '/images/global/cappella.png',
 		listingStatus: 'unlisted',
 		address: {
@@ -79,7 +87,9 @@ export const PLACES: Place[] = [
 				],
 				price: 282,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 52123132,
@@ -87,7 +97,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 1, type: 'king' }],
 				price: 132,
 				quantity: 3,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 8547432,
@@ -95,7 +107,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 2, type: 'king' }],
 				price: 150,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			}
 		],
 		review: REVIEWS
@@ -107,8 +121,9 @@ export const PLACES: Place[] = [
 		desc: 'Incredible Sea Views, 3 different Pools, Newly renovated rooms.',
 		rating: 4.9,
 		ratingTotal: 120,
-		total: 212,
+		total: 84,
 		subtotal: 181,
+		coords: [27.797245, 85.253959],
 		imgSrc: '/images/global/castel_ovo.png',
 		address: {
 			state: 'Florida',
@@ -126,7 +141,9 @@ export const PLACES: Place[] = [
 				],
 				price: 282,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 825423424,
@@ -134,7 +151,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 1, type: 'king' }],
 				price: 132,
 				quantity: 3,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			},
 			{
 				id: 72423452,
@@ -142,7 +161,9 @@ export const PLACES: Place[] = [
 				beds: [{ count: 2, type: 'king' }],
 				price: 150,
 				quantity: 1,
-				images: ['/images/global/galleria_umberto.png']
+				images: '/images/global/galleria_umberto.png',
+				roomType: 'suite',
+				stock: 4
 			}
 		]
 	}

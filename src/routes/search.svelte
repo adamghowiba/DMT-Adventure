@@ -2,29 +2,70 @@
 	import Map from '$lib/components/map/Map.svelte';
 	import SearchCard from '$lib/components/search/SearchCard.svelte';
 	import { PLACES } from '$lib/constants/places';
+	import type { Place } from '$lib/types/listing';
+	import type { Popup } from 'leaflet';
+
+	type PlaceWithPopup = Place & { popup: Popup };
+	let places = PLACES as PlaceWithPopup[];
+
+	const handleMouseEnter = (index: number) => {
+		places[index].popup.setContent(`<div class="marker hovered"> $${places[index].total} </div>`);
+	};
+
+	const handleMouseLeave = (index: number) => {
+		places[index].popup.setContent(`<div class="marker"> $${places[index].total} </div>`);
+	}
 </script>
 
 <section class="grid">
 	<div class="cards">
-		<header>
-			<div class="mobile-thumb" />
-			<h5>30+ stays in Marco Island Naples, Italy</h5>
-			<hr />
-		</header>
+		{#if places.length > 0}
+			<header>
+				<div class="mobile-thumb" />
+				<h5>{places.length} stays in Marco Island Naples, Italy</h5>
+				<hr />
+			</header>
 
-		<div class="cards__items">
-			{#each PLACES as card}
-				<SearchCard {...card} />
-			{/each}
-		</div>
+			<div class="cards__items">
+				{#each places as card, i}
+					<SearchCard {...card} on:mouseenter={() => handleMouseEnter(i)} on:mouseleave={() => handleMouseLeave(i)} />
+				{/each}
+			</div>
+		{:else}
+			<div class="no-result">
+				<h3>No results</h3>
+				<p>Try changing or removing some of your filters or adjusting your search area.</p>
+				<hr />
+			</div>
+		{/if}
 	</div>
 
 	<div class="map">
-		<Map />
+		<Map bind:places />
 	</div>
 </section>
 
 <style lang="scss">
+	.no-result {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+		margin-top: var(--space-sm);
+
+		h3 {
+			line-height: 1em;
+		}
+
+		p {
+			margin-bottom: var(--space-2xs);
+		}
+	}
+	hr {
+		border: none;
+		margin: 0;
+		padding: 0;
+		border-top: 1px solid var(--color-trans);
+	}
 	.grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;

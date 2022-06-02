@@ -1,7 +1,9 @@
 <script lang="ts">
+
 </script>
 
-<h1>Hello</h1>
+<slot />
 
 <style lang="scss">
+    
 </style>

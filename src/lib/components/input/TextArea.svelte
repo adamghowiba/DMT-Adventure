@@ -42,11 +42,15 @@
 			display: none;
 		}
 	}
+
+	.textarea::placeholder {
+		color: var(--color-gray-light);
+	}
 	.textarea-wrap {
 		position: relative;
 
 		.placeholder {
-			color: var(--color-gray-muted);
+			color: var(--color-gray-light);
 			position: absolute;
 			top: var(--space-xs);
 			left: var(--space-xs);

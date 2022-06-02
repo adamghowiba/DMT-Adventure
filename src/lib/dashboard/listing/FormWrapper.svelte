@@ -1,11 +1,13 @@
 <script lang="ts">
 	import TextInput from '$lib/components/input/TextInput.svelte';
+	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 	import FormEditCard from './forms/FormEditCard.svelte';
 
 	export let title: string | null = null;
 	export let value: string = 'Not set';
 	export let isEditing: boolean = false;
+	export let href: string | null = '';
 
 	const handleCancelEvent = () => {
 		isEditing = false;
@@ -37,13 +39,21 @@
 		</div>
 
 		<header>
-			<button on:click={() => (isEditing = !isEditing)}>Edit</button>
+			{#if href}
+				<a {href} class="link">
+					Edit
+					<Icon icon="akar-icons:chevron-left" rotate={2} color="inherit" width={16} height={16} />
+				</a>
+			{:else}
+				<button on:click={() => (isEditing = !isEditing)}>Edit</button>
+			{/if}
 		</header>
 	</div>
 {/if}
 
 <style lang="scss">
-	button {
+	button,
+	a {
 		appearance: none;
 		background-color: transparent;
 		border: none;
@@ -51,6 +61,7 @@
 		font-family: inherit;
 		color: var(--color-text-body);
 		padding: 0;
+		font-size: var(--text-h5);
 		margin: 0;
 		text-decoration: underline;
 		padding: var(--space-3xs);
@@ -61,6 +72,11 @@
 			cursor: pointer;
 			background-color: rgba(92, 92, 92, 0.068);
 		}
+	}
+	.link {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
 	}
 	header {
 		display: flex;

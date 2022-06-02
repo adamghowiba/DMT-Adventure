@@ -1,18 +1,28 @@
 <script lang="ts">
-	export let type: 'text' | 'email' | 'date' | 'div' = 'text';
+	export let type: 'text' | 'email' | 'date' | 'div' | 'number' = 'text';
 	export let placeholder: string | null = null;
 	export let name: string;
-	export let value: string = '';
-	export let focusStyle: 'top' | 'inner' | 'none' = placeholder ? 'inner' : "none";
+	export let value: any = '';
+	export let focusStyle: 'top' | 'inner' | 'none' = placeholder ? 'inner' : 'none';
+	export let required: boolean = false;
 
 	export let borderRadius = 'var(--br-lg)';
 	export let disabled: boolean = false;
 	export let maxWidth: string = 'none';
 	export let width: string = '100%';
+
+	let error: boolean = false;
+
+	const handleInput = (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		const valid = target.checkValidity();
+		error = !valid;
+	};
 </script>
 
 <div
 	class="wrapper"
+	class:error
 	on:click
 	style="--borderRadius: {borderRadius}; --maxWidth: {maxWidth}; --width: {width};"
 >
@@ -22,15 +32,30 @@
 			class:entered={value}
 			class={focusStyle}
 			{name}
+			{required}
+			{disabled}
+			bind:value
+			on:blur={handleInput}
+			on:input={handleInput}
+			on:focus
+		/>
+	{:else if type === 'email'}
+		<input type="email" {name} {disabled} {required} bind:value />
+	{:else if type === 'date'}
+		<input type="date" {name} {disabled} {required} bind:value />
+	{:else if type === 'number'}
+		<input
+			type="number"
+			class:entered={value}
+			class={focusStyle}
+			{name}
+			{required}
 			{disabled}
 			bind:value
 			on:focus
-			on:blur
+			on:blur={handleInput}
+			on:input={handleInput}
 		/>
-	{:else if type === 'email'}
-		<input type="email" {name} {disabled} bind:value />
-	{:else if type === 'date'}
-		<input type="date" {name} {disabled} bind:value />
 	{/if}
 
 	{#if placeholder}
@@ -68,7 +93,7 @@
 		border: 1px solid var(--color-gray-light);
 		outline: none;
 		font-size: var(--text-base-lg);
-		height: 50px;
+		min-height: 56px;
 		transition: border 0.1s ease-out;
 		color: var(--color-text-body);
 
@@ -99,6 +124,11 @@
 			@include entered;
 		}
 	}
+
+	.error input {
+		border: 1px solid var(--color-red);
+		background-color: rgba(243, 62, 62, 0.178);
+	}
 	.placeholder {
 		position: absolute;
 		top: 50%;
@@ -114,7 +144,7 @@
 		span {
 			padding: 0 2px;
 			color: var(--color-gray-light);
-			background-color: var(--color-white);
+			background-color: transparent;
 		}
 	}
 </style>

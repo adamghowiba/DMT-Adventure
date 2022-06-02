@@ -18,6 +18,8 @@
 	export let icon: PartialIcon | string | null = null;
 	export let width: string = 'auto';
 	export let height: string = 'auto';
+	export let disabled: boolean = false;
+	export let buttonType: 'submit' | 'button' | 'reset' = 'button';
 
 	const COLORS = {
 		purple: 'var(--color-primary)',
@@ -41,10 +43,13 @@
 	const buttonStyles = `${size} ${style} ${borderRadius} icon--${iconStyles().location}`;
 </script>
 
-<div class="button-wrap" style="--buttonColor: {COLORS[color]}; --width: {width}; --height: {height};">
+<div
+	class="button-wrap"
+	class:disabled
+	style="--buttonColor: {COLORS[color]}; --width: {width}; --height: {height};"
+>
 	{#if href}
-		<a {href} class={buttonStyles}>
-			<slot />
+		<a {href} {disabled} class={buttonStyles}>
 			{#if icon}
 				<Icon
 					icon={iconStyles().icon}
@@ -53,9 +58,10 @@
 					height={iconStyles().size}
 				/>
 			{/if}
+			<slot />
 		</a>
 	{:else}
-		<button class={buttonStyles} on:click>
+		<button class={buttonStyles} {disabled} type={buttonType} on:click>
 			{#if icon}
 				<Icon
 					icon={iconStyles().icon}
@@ -72,8 +78,12 @@
 <style lang="scss">
 	.button-wrap {
 		width: var(--width);
+
+		&.disabled {
+			opacity: 0.5;
+		}
 	}
-	
+
 	button {
 		appearance: none;
 		background-color: transparent;

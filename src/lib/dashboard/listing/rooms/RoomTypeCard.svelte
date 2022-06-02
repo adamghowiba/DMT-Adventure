@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/global/Button.svelte';
 	import type { Room } from '$lib/types/listing';
-import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let room: Room;
 	export let selected: boolean = false;
@@ -9,9 +9,9 @@ import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
 	export const handleReserveAction = () => {
-		selected = !selected
+		selected = !selected;
 		dispatch('reserveSelected', room);
-	}
+	};
 </script>
 
 <div class="room" class:selected>
@@ -25,14 +25,13 @@ import { createEventDispatcher } from 'svelte';
 		<h4>{room.name}</h4>
 
 		<div class="info">
-			<li class="info__item">
+			<div class="info__item">
+				<em>Beds - </em>
 				{#each room.beds as beds, i}
-					<span>{beds.count} {beds.type} {i < room.beds.length - 1 ? '/ ' : ''} </span>
+					<span> {beds.count} {beds.type} {i < room.beds.length - 1 ? '/ ' : ''} </span>
 				{/each}
-				<span>Bed</span>
-			</li>
-
-			<li class="info__item">Resever now pay later</li>
+			</div>
+            <span><em>Type</em> - Suite</span>
 		</div>
 
 		<div class="footer">
@@ -43,22 +42,19 @@ import { createEventDispatcher } from 'svelte';
 
 			<!-- TODO: -->
 			<div class="reserve">
-				{#if selected}
-					<Button size="small" style="empty" icon="akar-icons:check" on:click={handleReserveAction}>
-						Selected
-					</Button>
-				{:else}
-					<Button size="small" on:click={handleReserveAction}>Reserve</Button>
-				{/if}
+				<slot />
 			</div>
 		</div>
 	</div>
 </div>
 
 <style lang="scss">
+	em {
+		font-weight: var(--fw-semi-bold);
+	}
 	.room {
 		width: 100%;
-		background-color: var(--color-offwhite);
+		background-color: var(--color-white);
 		border-radius: var(--br-lg);
 		border: 1px solid transparent;
 
@@ -102,7 +98,7 @@ import { createEventDispatcher } from 'svelte';
 	.footer {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-end;
+		align-items: center;
 		margin-top: var(--space-3xs);
 
 		h3 {

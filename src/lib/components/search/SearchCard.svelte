@@ -14,7 +14,7 @@
 	export let isNew: boolean = false;
 </script>
 
-<a href="/place/{encodeURIComponent(title)}" class="card">
+<a href="/place/{encodeURIComponent(title)}" class="card" on:mouseenter on:mouseleave>
 	<img class="card__thumbnail" src={imgSrc} alt={title} />
 
 	<div class="card__body">
@@ -93,7 +93,7 @@
 			white-space: nowrap;
 			line-height: normal;
 		}
-		
+
 		&__suffix {
 			font-size: var(--text-h4);
 			line-height: normal;
@@ -134,7 +134,7 @@
 			}
 
 			&__suffix {
-				font-size: var(--text-h5)
+				font-size: var(--text-h5);
 			}
 		}
 	}

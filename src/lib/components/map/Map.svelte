@@ -1,12 +1,21 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import type { LatLngExpression, Map, Marker, LeafletEventHandlerFn } from 'leaflet';
+	import type { Place } from '$lib/types/listing';
 	import type Leaflet from 'leaflet';
+	import type { LatLngExpression, LeafletEventHandlerFn, Map, MapOptions, Popup } from 'leaflet';
+	import { onMount } from 'svelte';
+
+	// type MapData = Pick<Place, 'id' | 'title' | 'coords'>;
+	type PlaceWithPopup = Place & { popup: Popup };
+
+	// export let coords: LatLngExpression[];
+	export let places: PlaceWithPopup[];
+	const placeCopy = places;
 
 	const mapbox_token =
 		'pk.eyJ1Ijoid2VicmV2aXZlZCIsImEiOiJjbDNuNDd6MG0wOXdtM3JzOWZjdDFzdWVuIn0.0RW0ALlkUzoBG1T2S1Eg9w';
 	let leaflet: typeof Leaflet;
 	let mapElement: HTMLElement;
+	let map: Leaflet.Map;
 
 	async function getCordsFromAddress(address: string): Promise<LatLngExpression> {
 		const response = await fetch(
@@ -27,54 +36,56 @@
 				accessToken: mapbox_token,
 				tileSize: 512,
 				zoomOffset: -1,
-				maxZoom: 18
+				maxZoom: 15,
+				minZoom: 4
 			})
 			.addTo(map);
 	}
 
-	const cords: LatLngExpression[] = [
-		[27.717245, 85.323959],
-		[27.742245, 85.343959],
-		[27.797245, 85.253959]
-	];
+	let popup: Popup;
 
-	const NAPAL_CORDS: { [key: string]: LatLngExpression } = {
-		kathmandu: [27.717245, 85.323959]
-	};
-
-	const addTilesLayers = (cords: LatLngExpression[], map: Map) => {
-		let markers: Marker[] = [];
-		// const popup = leaflet.popup().setLatLng(cords[0]).setContent('Hello world').openOn(map);
-
-		const onMarkerClick: LeafletEventHandlerFn = (event) => {
-			console.log('Clicked marker', event.target);
-			const { lat, lng } = event.target._latlng;
-
-			// popup
-			// 	.setContent('Okay sir got it')
-			// 	.setLatLng([lat + 0.005, lng])
-			// 	.openOn(map);
-		};
-
-		cords.forEach((cord) => {
-			const marker = leaflet.marker(cord, { title: 'Hello world', riseOnHover: true });
-
-			marker.addEventListener('click', onMarkerClick, 'name');
-			marker.addTo(map);
-
-			markers.push(marker);
+	const addTilesLayers = (places: PlaceWithPopup[], map: Map) => {
+		places.forEach((place, i) => {
+			let popup = leaflet
+				.popup()
+				.setLatLng(place.coords)
+				.setContent(`<div class="marker"> $${place.total} </div>`)
+				.addTo(map);
+			places[i]['popup'] = popup;
 		});
 
-		return () => {
-			markers.forEach((marker) => {
-				marker.removeEventListener('click', onMarkerClick);
-			});
-		};
+		// coords.forEach((cord) => {
+		// 	const marker = leaflet.marker(cord);
+
+		// 	marker.addTo(map);
+		// });
 	};
 
+	const handleMapPane: LeafletEventHandlerFn = (event) => {
+		const nwBounds = map.getBounds().getNorthEast();
+		const swBounds = map.getBounds().getSouthWest();
+		const bounds = leaflet.latLngBounds(nwBounds, swBounds);
+
+		const visibleListings = placeCopy.filter((place) => {
+			return bounds.contains(place.coords);
+		});
+
+		places = visibleListings;
+	};
+
+	// const getCordsFormListings = (listings: MapData[]): LatLngExpression[] => {
+	// 	return listings.map(({ coords }) => coords);
+	// };
+
 	onMount(async () => {
+		const MAP_OPTIONS: MapOptions = {
+			zoomSnap: 0.25,
+			zoomDelta: 4,
+			wheelPxPerZoomLevel: 60
+		};
+
 		const L = await import('leaflet');
-		const map = new L.Map('map').setView([27.717245, 85.323959], 12);
+		map = new L.Map('map', MAP_OPTIONS).setView([27.717245, 85.323959], 11);
 		leaflet = L;
 
 		let container = leaflet.DomUtil.get('map');
@@ -83,10 +94,17 @@
 			container._leaflet_id = null;
 		}
 
-		addFooterAttributionToMap(map);
-		const destory = addTilesLayers(cords, map);
+		map.on('moveend', handleMapPane);
 
-		return () => destory();
+		addFooterAttributionToMap(map);
+		addTilesLayers(places, map);
+
+		return () => {
+			map.off();
+			map.remove();
+			map.clearAllEventListeners();
+			map.zoomControl.remove();
+		};
 	});
 </script>
 
@@ -103,6 +121,51 @@
 <div id="map" bind:this={mapElement} />
 
 <style lang="scss">
+	:global(.leaflet-popup-content-wrapper, .map-legends, .map-tooltip) {
+		background-color: transparent;
+		box-shadow: none;
+		background: transparent;
+		border-radius: 3px !important;
+	}
+
+	:global(.leaflet-popup-content-wrapper .leaflet-popup-content) {
+		background-color: transparent;
+	}
+
+	:global(.leaflet-popup-tip-container) {
+		display: none;
+	}
+
+	@keyframes popup {
+		from {
+			transform: scale(1);
+		}
+		to {
+			transform: scale(1.1);
+		}
+	}
+
+	:global(.marker) {
+		position: absolute;
+		top: 0;
+		padding: var(--space-3xs);
+		background-color: white;
+		color: var(--color-midnight);
+		font-weight: var(--fw-extra-bold);
+		display: flex;
+		box-shadow: var(--shadow-image);
+		justify-content: center;
+		align-items: center;
+		left: 0;
+		border-radius: 20px;
+		width: 100%;
+	}
+
+	:global(.marker.hovered) {
+		background-color: black;
+		color: white;
+		animation: popup 0.15s ease-in-out forwards;
+	}
 	#map {
 		width: 100%;
 		height: 100%;
