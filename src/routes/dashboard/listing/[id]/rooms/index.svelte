@@ -26,8 +26,6 @@
 	import type { Load } from '@sveltejs/kit';
 
 	export let roomData: Room[];
-
-	console.log(roomData);
 </script>
 
 <header>

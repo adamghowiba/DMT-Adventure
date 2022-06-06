@@ -86,10 +86,7 @@
 		validate(roomData);
 	};
 
-	// $: console.log(roomData);
-	$: console.log(formError);
 	$: validate(roomData);
-
 	// $: if (roomData && formElement) canSubmit = checkBedValidity() && checkInputValidity() && checkPricingValidity();
 </script>
 

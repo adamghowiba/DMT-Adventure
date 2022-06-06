@@ -19,7 +19,6 @@
 	let inputsClone = { ...inputs };
 
 	const updateData = (data: DataInputs) => {
-		console.log('Updating data to', data.description, data.space);
 		inputs = { ...inputsClone };
 	};
 

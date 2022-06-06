@@ -16,7 +16,6 @@
 	const handleScrollPastButton: IntersectionObserverCallback = (entries, observer) => {
 		const [element] = entries;
 
-		console.log('Intersection');
 		if (!element.isIntersecting) {
 			dispatch('bookIntersection', false);
 			return;

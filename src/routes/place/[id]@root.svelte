@@ -19,6 +19,7 @@
 	import { setContext } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 
+	export const prerender = false;
 	export const load: Load = ({ params, url }) => {
 		const placeId = params.id;
 		const parsedPlaceId = decodeURIComponent(placeId);

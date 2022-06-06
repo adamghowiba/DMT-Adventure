@@ -10,7 +10,6 @@
 	const handleScrollPastGallery: IntersectionObserverCallback = (entries) => {
 		if (!entries[0].target.clientHeight) return;
 
-		console.log(entries[0].target.clientHeight);
 		dispatch('intersect', !entries[0].isIntersecting);
 	};
 

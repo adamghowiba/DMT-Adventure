@@ -34,7 +34,6 @@
 
 			if (numIndex > -1) {
 				selectedRows = selectedRows.filter((rowIndex) => rowIndex !== num);
-				// console.log(`Row at ${numIndex} already exists`)
 			} else {
 				selectedRows = [...selectedRows, num];
 			}
@@ -117,7 +116,6 @@
 			}, {});
 		});
 
-		console.log(columnData);
 		return columnData;
 	};
 

@@ -66,8 +66,6 @@
 	const parsedCheckIn = new Date(checkIn);
 	const parsedCheckOut = new Date(checkOut);
 
-	console.log(parsedCheckIn, parsedCheckOut);
-
 	const getSelectedRooms = (rooms: string[]) => {
 		if (!rooms?.length) return [];
 

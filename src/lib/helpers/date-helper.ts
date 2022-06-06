@@ -56,8 +56,6 @@ export const transformTripDates = (checkIn: Date, checkOut: Date) => {
 	const checkInDay = checkIn.getDate();
 	const checkOutDay = checkOut.getDate();
 
-	console.log(checkInDay, checkOutDay);
-
 	return `${checkInMonth} ${checkInDay} - ${formattedCheckOutMonth} ${checkOutDay}`;
 };
 

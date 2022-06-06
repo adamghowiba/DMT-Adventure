@@ -103,7 +103,6 @@
 		currentTransformAmount = ~showcaseCardsElement.getBoundingClientRect().left;
 
 		const cardSnap = Math.round(currentTransformAmount / cardFullWidth);
-		console.log(cardSnap);
 		setSlide(cardSnap);
 	};
 
@@ -126,7 +125,6 @@
 			showcaseCardsElement.addEventListener('touchend', handleTouchEnd);
 		};
 	});
-	// $: console.log('Current side', currentSlide);
 </script>
 
 <section

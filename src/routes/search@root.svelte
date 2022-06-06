@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+	export const prerender = false;
 	export const load: Load = ({ url }) => {
 		let checkIn = new Date(url.searchParams.get('checkIn') || '');
 		let checkOut = new Date(url.searchParams.get('checkOut') || '');

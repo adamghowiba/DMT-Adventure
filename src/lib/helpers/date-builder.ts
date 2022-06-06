@@ -12,7 +12,6 @@ import {
 export const buildCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
 	const monthDays = getMonthDays(month, year);
 	const monthFirstDay = getMonthFirstDay(month, year);
-	console.log(monthDays, monthFirstDay)
 
 	const thisMonthDates = Array.from({length: monthDays + monthFirstDay}).map((_, i) => {
 		const day = i + 1;
@@ -21,11 +20,8 @@ export const buildCalendar = (month = THIS_MONTH, year = THIS_YEAR) => {
 		return [month, day- monthFirstDay, year]
 	});
 
-	console.log(thisMonthDates);
 	return thisMonthDates;
 };
-
-console.log(buildCalendar())
 
 export default (month = THIS_MONTH, year = THIS_YEAR) => {
 	// Get number of days in the month and the month's first day

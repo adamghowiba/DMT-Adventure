@@ -7,7 +7,6 @@
 	const handleTouch = (event: TouchEvent) => {
         const screenX = event.touches[0].clientX;
 
-        console.log(screenX);
         blockElement.style.transform = `translateX(${screenX}px)`
     };
 

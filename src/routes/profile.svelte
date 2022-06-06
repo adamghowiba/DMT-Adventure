@@ -2,7 +2,7 @@
 	import ProfileDetails from '$lib/components/profile/ProfileDetails.svelte';
 	import ProfilePassword from '$lib/components/profile/ProfilePassword.svelte';
 	import ProfileSidebar from '$lib/components/profile/ProfileSidebar.svelte';
-import { USER } from '$lib/constants/user';
+	import { USER } from '$lib/constants/user';
 </script>
 
 <main class="container section--sm">

@@ -19,7 +19,6 @@
 				status: 400
 			};
 
-		console.log(roomId);
 		const roomData = listingData.rooms.find((room) => room.id === roomId);
 
 		if (!roomData)

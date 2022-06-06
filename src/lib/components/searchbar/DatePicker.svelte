@@ -15,7 +15,6 @@
 	const dispatch = createEventDispatcher();
 
 	const handleDayClick = (date: SearchDate) => {
-		console.log(date);
 		dispatch('clickDate', parseSearchDate(date));
 	};
 
