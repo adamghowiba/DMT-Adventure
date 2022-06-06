@@ -1,10 +1,12 @@
+<!-- Commented out while under construction. -->
+
 <script lang="ts">
-	import FormWrapper from '$lib/dashboard/listing/FormWrapper.svelte';
-	import ListingEditContainer from '$lib/dashboard/listing/ListingEditContainer.svelte';
-	import ListingWrap from '$lib/dashboard/listing/ListingWrap.svelte';
+	// import FormWrapper from '$lib/dashboard/listing/FormWrapper.svelte';
+	// import ListingEditContainer from '$lib/dashboard/listing/ListingEditContainer.svelte';
+	// import ListingWrap from '$lib/dashboard/listing/ListingWrap.svelte';
 </script>
 
-<ListingEditContainer title="policies">
+<!-- <ListingEditContainer title="details">
 	<ListingWrap title="Listing Basics">
 		<FormWrapper title="listing title" />
 		<FormWrapper title="Listing description" />
@@ -18,7 +20,7 @@
 	<ListingWrap title="Photos">
 		<FormWrapper title="listing title" />
 	</ListingWrap>
-</ListingEditContainer>
+</ListingEditContainer> -->
 
 <style lang="scss">
 </style>

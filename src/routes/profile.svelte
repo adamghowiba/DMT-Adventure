@@ -1,7 +1,8 @@
 <script lang="ts">
-	import ProfileDetails from '$lib/profile/ProfileDetails.svelte';
-	import ProfilePassword from '$lib/profile/ProfilePassword.svelte';
-	import ProfileSidebar from '$lib/profile/ProfileSidebar.svelte';
+	import ProfileDetails from '$lib/components/profile/ProfileDetails.svelte';
+	import ProfilePassword from '$lib/components/profile/ProfilePassword.svelte';
+	import ProfileSidebar from '$lib/components/profile/ProfileSidebar.svelte';
+import { USER } from '$lib/constants/user';
 </script>
 
 <main class="container section--sm">
@@ -10,7 +11,7 @@
 	</div>
 
 	<form action="" on:submit|preventDefault>
-		<ProfileDetails />
+		<ProfileDetails user={USER} />
 		<ProfilePassword />
 	</form>
 </main>
@@ -31,8 +32,8 @@
 		main {
 			grid-template-columns: 1fr;
 		}
-        .sidebar {
-            display: none;
-        }
+		.sidebar {
+			display: none;
+		}
 	}
 </style>

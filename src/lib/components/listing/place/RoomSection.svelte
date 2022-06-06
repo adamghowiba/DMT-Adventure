@@ -19,4 +19,12 @@
 		grid-template-columns: 1fr 1fr;
 		gap: var(--space-md);
 	}
+
+	// Laptop
+	@media screen and (max-width: 1024px) {
+		.rooms {
+			display: grid;
+			grid-template-columns: 1fr;
+		}
+	}
 </style>

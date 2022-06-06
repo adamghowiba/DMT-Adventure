@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import Button from '$lib/components/global/Button.svelte';
-	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import RailItem from './RailItem.svelte';
+	import { createEventDispatcher,onDestroy } from 'svelte';
 	import RailTotal from './RailTotal.svelte';
-
+	
 	export let total: number;
 	export let bookingDays: number;
 	export let bookingUrl: string;
@@ -98,5 +97,18 @@
 		padding: 0;
 		border: none;
 		border-top: 1px solid var(--color-trans);
+	}
+
+	// Laptop
+	@media screen and (max-width: 1024px) {
+		.rail {
+			width: auto;
+		}
+	}
+	
+	@media screen and (max-width: 597px) {
+		.rail {
+			top: 2rem;
+		}
 	}
 </style>

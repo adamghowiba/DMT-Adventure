@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Button from '$lib/components/global/Button.svelte';
 	import type { Room } from '$lib/types/listing';
 	import { createEventDispatcher } from 'svelte';
-
+	
 	export let room: Room;
 	export let selected: boolean = false;
 
@@ -31,7 +30,7 @@
 					<span> {beds.count} {beds.type} {i < room.beds.length - 1 ? '/ ' : ''} </span>
 				{/each}
 			</div>
-            <span><em>Type</em> - Suite</span>
+			<span><em>Type</em> - Suite</span>
 		</div>
 
 		<div class="footer">

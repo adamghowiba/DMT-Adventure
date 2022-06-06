@@ -6,12 +6,12 @@
 	export let desc: string;
 	export let rating: number;
 	export let ratingTotal: number;
-	export let total: number;
 	export let subtotal: number;
 	export let imgSrc: string;
-	export let availableCount: number = 0;
-
-	export let isNew: boolean = false;
+	
+	// export let total: number;
+	// export let availableCount: number = 0;
+	// export let isNew: boolean = false;
 </script>
 
 <a href="/place/{encodeURIComponent(title)}" class="card" on:mouseenter on:mouseleave>
@@ -100,12 +100,12 @@
 			font-weight: var(--fw-regular);
 		}
 
-		&__subtotal {
-			display: block;
-			text-align: right;
-			color: var(--color-gray-muted);
-			opacity: 0.8;
-		}
+		// &__subtotal {
+		// 	display: block;
+		// 	text-align: right;
+		// 	color: var(--color-gray-muted);
+		// 	opacity: 0.8;
+		// }
 	}
 
 	@media screen and (max-width: 768px) {

@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { IconType } from '$lib/types/icon';
-	import Icon from '@iconify/svelte';
-	import Button from '../global/Button.svelte';
 	import LocalIcon from '../global/LocalIcon.svelte';
 
 	export let title: string;
@@ -75,10 +73,15 @@
 
 	@media screen and (max-width: 597px) {
 		.reasons {
-			align-items: flex-start;
+			align-items: center;
+			text-align: center;
 		}
 		.items {
 			flex-direction: column;
+
+			&__item {
+				align-items: center;
+			}
 		}
 	}
 </style>

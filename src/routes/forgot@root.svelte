@@ -1,9 +1,8 @@
 <script lang="ts">
 	import AuthTopbar from '$lib/components/auth/AuthTopbar.svelte';
-	import ImageSlider from '$lib/components/auth/ImageSlider.svelte';
 	import Button from '$lib/components/global/Button.svelte';
 	import TextInput from '$lib/components/input/TextInput.svelte';
-</script>
+	</script>
 
 <main class="main">
 	<div class="container">

@@ -8,8 +8,8 @@
 </BookWrapper>
 
 <style lang="scss">
-    p {
-        max-width: 50ch;
-        font-size: var(--text-base-lg);
-    }
+	p {
+		max-width: 50ch;
+		font-size: var(--text-base-lg);
+	}
 </style>

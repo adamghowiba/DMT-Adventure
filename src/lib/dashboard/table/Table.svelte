@@ -1,6 +1,5 @@
 <script lang="ts">
-import { parseStylesVars } from "$lib/helpers/string-helper";
-
+	import { parseStylesVars } from '$lib/helpers/string-helper';
 
 	export let width: string = '100%';
 </script>

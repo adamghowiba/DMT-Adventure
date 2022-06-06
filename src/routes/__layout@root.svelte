@@ -3,7 +3,12 @@
 </script>
 
 <Navbar />
-<slot />
+<main>
+	<slot />
+</main>
 
 <style lang="scss">
+main {
+	padding-top: 83px;
+}
 </style>

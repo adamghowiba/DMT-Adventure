@@ -1,6 +1,5 @@
 <script lang="ts">
-	import DateDropdown from '$lib/components/searchbar/DateDropdown.svelte';
-	import SearchBar from '../searchbar/SearchBar.svelte';
+	import SearchBar from '../../components/searchbar/SearchBar.svelte';
 
 	export let imgSrc: string;
 	export let title: string;
@@ -13,22 +12,49 @@
 	<div class="overlay overlay--linear" />
 
 	<header class="container">
-		<h1>{title}</h1>
+		<div class="text">
+			<h1 class="title">It's time to</h1>
+			<h1 class="title title--subtitle">Discover</h1>
+		</div>
 		<h5>{subtitle}</h5>
-		<SearchBar />
 	</header>
+	<div class="container">
+		<div class="search">
+			<SearchBar searchButton />
+		</div>
+	</div>
 </section>
 
 <style lang="scss">
+	.search {
+		position: absolute;
+		bottom: 0;
+		transform: translateY(50%);
+		background-color: var(--color-offwhite);
+		padding: var(--space-lg) var(--space-md);
+		border-radius: 3px;
+		box-shadow: var(--shadow-image);
+		z-index: 200;
+	}
+	
+	.container {
+		display: flex;
+		justify-content: center;
+		position: relative;
+	}
+
 	.hero {
 		position: relative;
-		min-height: 550px;
+		min-height: 75vh;
 		height: 550px;
+		margin-bottom: var(--space-4xl);
 
 		&__image {
 			position: absolute;
 			width: 100%;
 			height: 100%;
+			object-position: center;
+			object-fit: cover;
 		}
 	}
 
@@ -37,7 +63,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: var(--space-2xs);
+		gap: var(--space-sm);
 		width: 100%;
 		height: 100%;
 		color: var(--color-white);
@@ -49,23 +75,53 @@
 			font-size: var(--text-base-lg);
 			letter-spacing: normal;
 		}
+
+		.text {
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-2xs);
+		}
+
+		.title {
+			font-size: 60px;
+			font-weight: var(--fw-light);
+		}
+
+		.title--subtitle {
+			font-weight: var(--fw-bold);
+		}
 	}
 
 	.overlay {
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-color: rgb(0, 0, 0, 0.35);
+		background-color: rgba(0, 0, 0, 0.055);
 		top: 0;
 		left: 0;
 	}
 
 	.overlay--linear {
-		background: linear-gradient(to right, rgba(0, 0, 0, 0.3) 40%, transparent);
+		background: linear-gradient(to right, rgba(0, 0, 0, 0.18) 40%, transparent);
 	}
 
 	h1,
 	h5 {
 		color: var(--color-white);
+	}
+
+	@media only screen and (max-width: 1024px) {
+		.search {
+			width: 95%;
+		}
+	}
+
+	
+	@media only screen and (max-width: 425px) {
+		header {
+			.title {
+				font-size: 45px;
+			}
+		}
 	}
 </style>

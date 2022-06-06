@@ -1,9 +1,8 @@
 <script lang="ts">
-	import TextInput from '$lib/components/input/TextInput.svelte';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 	import FormEditCard from './forms/FormEditCard.svelte';
-
+	
 	export let title: string | null = null;
 	export let value: string = 'Not set';
 	export let isEditing: boolean = false;
@@ -81,7 +80,7 @@
 	header {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 		position: relative;
 		min-width: 40px;
 

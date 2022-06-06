@@ -35,11 +35,11 @@
 			align-items: center;
 		}
 
-        &__thumbnail {
-            width:  50px;
-            height: 50px;
-            object-fit: contain;
-        }
+		&__thumbnail {
+			width: 50px;
+			height: 50px;
+			object-fit: contain;
+		}
 	}
 
 	.info {
@@ -53,7 +53,7 @@
 		}
 	}
 
-    p {
-        line-height: var(--line-md);
-    }
+	p {
+		line-height: var(--line-md);
+	}
 </style>

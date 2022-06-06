@@ -1,10 +1,9 @@
 <script lang="ts">
-	import TextInput from '$lib/components/input/TextInput.svelte';
 	import { PLACES } from '$lib/constants/places';
 	import DataTable from '$lib/dashboard/datatable/DataTable.svelte';
 	import type { Place } from '$lib/types/listing';
 	import type { DataTableCol } from '$lib/types/table';
-
+	
 	export let searchValue: string = '';
 
 	const transformListingData = (places: Place[]) => {
@@ -12,7 +11,7 @@
 			title: { href: `/dashboard/listing/${id}/details`, name: title },
 			address: `${address?.state}, ${address?.city}`,
 			status: listingStatus || 'not set',
-			rooms: rooms.length,
+			rooms: rooms.length
 		}));
 	};
 

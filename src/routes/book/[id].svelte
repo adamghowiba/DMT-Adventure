@@ -54,8 +54,10 @@
 	import { PLACES } from '$lib/constants/places';
 	import type { Place } from '$lib/types/listing';
 
+	// Commented out: Unused
+	// export let listingId: number;
+	
 	export let selectedRooms: string[];
-	export let listingId: number;
 	export let checkIn: string;
 	export let checkOut: string;
 	export let listingData: Place;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/global/Button.svelte';
 	import type { Room } from '$lib/types/listing';
-import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	export let room: Room;
 	export let selected: boolean = false;
@@ -9,9 +9,9 @@ import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 
 	export const handleReserveAction = () => {
-		selected = !selected
+		selected = !selected;
 		dispatch('reserveSelected', room);
-	}
+	};
 </script>
 
 <div class="room" class:selected>

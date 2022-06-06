@@ -6,8 +6,14 @@
 	<SidebarLink icon="ant-design:dashboard-outlined" href="/dashboard">Home</SidebarLink>
 	<SidebarLink icon="ant-design:mail-outlined" href="/dashboard/inbox">Inbox</SidebarLink>
 	<SidebarLink icon="bx:book-bookmark" href="/dashboard/listing">Listings</SidebarLink>
-	<SidebarLink icon="clarity:list-line" dropdownLinks={['Reserve list', 'Market Form']}>
-		Reseervations
+	<SidebarLink
+		icon="clarity:list-line"
+		dropdownLinks={[
+			{ name: 'Reserve list', href: '/dashboard/listing' },
+			{ name: 'Market Form', href: '/dashboard/listing' }
+		]}
+	>
+		Reservations
 	</SidebarLink>
 </nav>
 

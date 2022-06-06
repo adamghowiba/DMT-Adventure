@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Hr from '$lib/components/global/HR.svelte';
 	import TextInput from '$lib/components/input/TextInput.svelte';
 	import type { Address } from '$lib/types/listing';
 	import FormWrapper from '../../FormWrapper.svelte';
@@ -24,7 +23,7 @@
 		updateData(addressClone);
 	};
 
-    const updateData = (data: Address) => {
+	const updateData = (_data: Address) => {
 		address = { ...addressClone };
 	};
 

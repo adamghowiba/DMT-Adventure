@@ -47,7 +47,7 @@
 	const addTilesLayers = (places: PlaceWithPopup[], map: Map) => {
 		places.forEach((place, i) => {
 			let popup = leaflet
-				.popup()
+				.popup({ closeOnClick: false, autoClose: false })
 				.setLatLng(place.coords)
 				.setContent(`<div class="marker"> $${place.total} </div>`)
 				.addTo(map);
@@ -154,6 +154,7 @@
 		font-weight: var(--fw-extra-bold);
 		display: flex;
 		box-shadow: var(--shadow-image);
+		max-width: 90px;
 		justify-content: center;
 		align-items: center;
 		left: 0;

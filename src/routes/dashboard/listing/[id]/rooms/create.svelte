@@ -5,8 +5,7 @@
 	import CoverPhoto from '$lib/dashboard/listing/rooms/CoverPhoto.svelte';
 	import RoomInfo from '$lib/dashboard/listing/rooms/RoomInfo.svelte';
 	import RoomPrice from '$lib/dashboard/listing/rooms/RoomPrice.svelte';
-	import type { Place, Room } from '$lib/types/listing';
-	import type { DeepPartial } from '$lib/types/type-helpers';
+	import type { Room } from '$lib/types/listing';
 	import { roomSchema } from '$lib/validations/room-validation';
 	import type { Load } from '@sveltejs/kit';
 
@@ -29,48 +28,30 @@
 </script>
 
 <script lang="ts">
-	export let listingData: Place;
+	// Commented Out: Unused
+	// export let listingData: Place;
+	// let canSubmit: boolean = false;
 
-	let canSubmit: boolean = false;
+	// let roomInfo: Partial<Pick<Room, 'roomType' | 'stock' | 'name'>> = {
+	// 	stock: undefined,
+	// 	roomType: undefined,
+	// 	name: undefined
+	// };
+	// const checkBedValidity = () => Boolean(roomData.beds?.length);
+	// const checkPricingValidity = () => Boolean(roomData.price && roomData.price > 0);
+
 	let formElement: HTMLFormElement;
-	let formError: string;
+	let formError: string | null;
 
-	let roomInfo: Partial<Pick<Room, 'roomType' | 'stock' | 'name'>> = {
+
+	let roomData: Partial<Room> = {
+		id: 1239541,
 		stock: undefined,
 		roomType: undefined,
+		price: undefined,
 		name: undefined
 	};
 
-	interface RoomData {
-		info: Partial<Pick<Room, 'roomType' | 'stock' | 'name'>>;
-		bed: Partial<Pick<Room, 'beds'>>;
-		price: Partial<Pick<Room, 'price'>>;
-	}
-
-	let formData: RoomData = {
-		info: {
-			name: undefined,
-			stock: undefined,
-			roomType: undefined
-		},
-		bed: {
-			beds: []
-		},
-		price: {
-			price: undefined
-		}
-	};
-
-	const roomData: Partial<Room> = {
-		id: 1239541,
-		...roomInfo
-	};
-
-	$: newRoomData = { ...formData.info, ...formData.bed, ...formData.price };
-
-	const checkBedValidity = () => Boolean(roomData.beds?.length);
-
-	const checkPricingValidity = () => Boolean(roomData.price && roomData.price > 0);
 
 	const checkInputValidity = () => {
 		const inputs = formElement.querySelectorAll('input');
@@ -90,24 +71,24 @@
 	};
 
 	const validate = async (data: Partial<Room>) => {
-		console.log('Validating', data);
 		try {
-			const result = roomSchema.validateSync(data);
+			// Unsued
+			// const result = roomSchema.validateSync(data);
 
-			console.log(result);
-		} catch (error) {
+			formError = null;
+		} catch (error: any) {
 			const [mainError] = error.errors;
 			formError = mainError;
-
-			console.log(mainError);
 		}
 	};
 
 	const handleSave = () => {
-		validate(newRoomData);
+		validate(roomData);
 	};
 
-	// $: console.log(newRoomData);
+	// $: console.log(roomData);
+	$: console.log(formError);
+	$: validate(roomData);
 
 	// $: if (roomData && formElement) canSubmit = checkBedValidity() && checkInputValidity() && checkPricingValidity();
 </script>
@@ -122,15 +103,15 @@
 >
 	<span>{formError}</span>
 	<CoverPhoto uploadedImageSrc={roomData['images']} />
-	<RoomInfo bind:roomInfo={formData.info} />
-	<BedsAndOccupancy bind:beds={formData.bed.beds} />
-	<RoomPrice bind:roomPrice={formData.price.price} />
+	<RoomInfo bind:roomInfo={roomData} />
+	<BedsAndOccupancy bind:beds={roomData['beds']} />
+	<RoomPrice bind:roomPrice={roomData['price']} />
 
 	<BottomBar
 		saveActionName="Create"
 		on:back={handleBackButton}
 		on:save={handleSave}
-		disabled={false}
+		disabled={Boolean(formError)}
 	/>
 </form>
 

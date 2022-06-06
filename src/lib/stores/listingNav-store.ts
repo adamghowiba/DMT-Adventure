@@ -7,16 +7,6 @@ const NAV_ITEMS: ListingNav = {
 		name: 'Listing Details',
 		href: '/details',
 		links: []
-	},
-	pricing: {
-		name: 'Pricing',
-		href: '/pricing',
-		links: []
-	},
-	policies: {
-		name: 'Policies',
-		href: '/policies',
-		links: []
 	}
 };
 

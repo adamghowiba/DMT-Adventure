@@ -27,7 +27,7 @@ export interface ListingNavLink {
 	element: HTMLElement | null;
 }
 
-export type ListingNavGroups = 'details' | 'pricing' | 'policies';
+export type ListingNavGroups = 'details';
 
 export type ListingNav = {
 	[K in ListingNavGroups]: ListingNavGroup;

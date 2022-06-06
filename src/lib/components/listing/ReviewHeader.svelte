@@ -1,7 +1,6 @@
 <script lang="ts">
 	import RatingStars from '../global/RatingStars.svelte';
-	import Rating from '../global/RatingStars.svelte';
-
+	
 	export let rating: number;
 	export let ratingTotal: number;
 </script>
@@ -20,11 +19,11 @@
 <style lang="scss">
 	.rating {
 		display: flex;
-        align-items: center;
+		align-items: center;
 		gap: var(--space-xs);
 
-        h1 {
-            font-size: 40px;
-        }
+		h1 {
+			font-size: 40px;
+		}
 	}
 </style>

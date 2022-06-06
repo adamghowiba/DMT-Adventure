@@ -1,8 +1,31 @@
 <script lang="ts">
+	import { createEventDispatcher, onMount } from 'svelte';
+
 	export let images: string[];
+
+	let galleryElement: HTMLElement;
+
+	const dispatch = createEventDispatcher();
+
+	const handleScrollPastGallery: IntersectionObserverCallback = (entries) => {
+		if (!entries[0].target.clientHeight) return;
+
+		console.log(entries[0].target.clientHeight);
+		dispatch('intersect', !entries[0].isIntersecting);
+	};
+
+	onMount(() => {
+		const observer = new IntersectionObserver(handleScrollPastGallery, {});
+		observer.observe(galleryElement);
+
+		return () => {
+			observer.disconnect();
+			observer.unobserve(galleryElement);
+		};
+	});
 </script>
 
-<div class="gallery">
+<div class="gallery" bind:this={galleryElement}>
 	<div class="images">
 		<img src={images[0]} alt="" />
 

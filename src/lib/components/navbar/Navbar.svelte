@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { session } from '$app/stores';
+	import { clickOutside } from '$lib/actions/clickOutside';
 	import Icon from '@iconify/svelte';
 	import Button from '../global/Button.svelte';
+	import NavbarDropdown from './NavbarDropdown.svelte';
 
 	interface NavbarLink {
 		icon: string;
@@ -9,23 +12,23 @@
 		dropdown?: NavbarLink[];
 	}
 
-	let iconSize = 18;
+	let isProfileDropdownOpen = false;
+
+	const ICON_PROPS = {
+		size: 22,
+		color: 'var(--color-primary)'
+	};
 	let NAV_LINKS: NavbarLink[] = [
 		// {
 		// 	name: 'Trip Boards',
 		// 	icon: 'akar-icons:heart',
 		// 	href: '/'
 		// },
-		{
-			name: 'Login',
-			icon: 'akar-icons:person',
-			href: '/login'
-		},
-		{
-			name: 'Sign Up',
-			icon: 'akar-icons:person-add',
-			href: '/signup'
-		},
+		// {
+		// 	name: 'Login',
+		// 	icon: 'akar-icons:person',
+		// 	href: '/login'
+		// },
 		{
 			name: 'Help',
 			icon: 'bx:help-circle',
@@ -41,23 +44,69 @@
 
 	<div class="links">
 		{#each NAV_LINKS as link}
-			<a href={link.href} class="links__item">
-				<Icon icon={link.icon} color="var(--color-primary)" width={iconSize} height={iconSize} />
+			<a href={link.href} class="item">
+				<Icon
+					icon={link.icon}
+					color="{ICON_PROPS.color}"
+					width={ICON_PROPS.size}
+					height={ICON_PROPS.size}
+				/>
 				<h4>{link.name}</h4>
 			</a>
 		{/each}
-		<Button style="border">Get Started</Button>
+		{#if $session.user}
+			<button
+				href=""
+				class="item"
+				use:clickOutside={() => (isProfileDropdownOpen = false)}
+				on:click={() => (isProfileDropdownOpen = !isProfileDropdownOpen)}
+			>
+				<img src="/images/global/no_avatar.png.png" class="avatar" alt="Placeholder Avatar" />
+				<h4>{$session.user.firstName} {$session.user.lastName.substring(0, 1)}.</h4>
+				<Icon icon="akar-icons:chevron-down" height={15} width={15} color="{ICON_PROPS.color}" />
+
+				{#if isProfileDropdownOpen}
+					<NavbarDropdown />
+				{/if}
+			</button>
+		{:else}
+			<a href="/signup" class="item">
+				<Icon
+					icon="akar-icons:person-add"
+					color="{ICON_PROPS.color}"
+					width={ICON_PROPS.size}
+					height={ICON_PROPS.size}
+				/>
+				<h4>Sign Up</h4>
+			</a>
+			<div href="/login" class="item">
+				<Icon
+					icon="akar-icons:person-add"
+					color="{ICON_PROPS.color}"
+					width={ICON_PROPS.size}
+					height={ICON_PROPS.size}
+				/>
+				<h4>Login</h4>
+			</div>
+		{/if}
+		<Button style="border" size="small" color="purple">Get Started</Button>
 	</div>
 </nav>
 
 <style lang="scss">
 	nav {
+		top: 0;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		min-height: 83px;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1000;
+		backdrop-filter: blur(5px);
 		background-color: var(--color-white);
-		// border-bottom: 1px solid var(--color-trans);
+		border-radius: 20px;
 
 		.logo {
 			max-width: 100%;
@@ -65,15 +114,45 @@
 		}
 	}
 
+	button {
+		appearance: none;
+		background-color: transparent;
+		border: none;
+		outline: none;
+		font-family: inherit;
+		padding: 0;
+		line-height: 1rem;
+		color: var(--color-text-heading);
+		font-weight: 500;
+	}
+
 	.links {
 		display: flex;
 		gap: var(--space-md);
 
-		&__item {
-			display: flex;
-			align-items: center;
-			gap: var(--space-2xs);
+		h4 {
+			font-size: var(--text-base-lg);
+			font-weight: 500;
+			color: var(--color-text-heading);
 		}
+	}
+
+	.item {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: var(--space-2xs);
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
+	.avatar {
+		width: 25px;
+		height: 25px;
+		border: 1px solid var(--color-trans);
+		border-radius: 50%;
 	}
 
 	@media screen and (max-width: 768px) {

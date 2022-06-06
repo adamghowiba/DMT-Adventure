@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
-
 	interface Slide {
 		imageSrc: string;
 		title: string;
@@ -35,25 +33,25 @@
 <style lang="scss">
 	.slider {
 		width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 		height: 100%;
 		background-color: var(--color-offwhite);
-        padding: var(--space-xl);
-        padding-bottom: var(--space-section-base);
+		padding: var(--space-xl);
+		padding-bottom: var(--space-section-base);
 	}
 
-    .images {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        
-        img {
-            width: 100%;
-            max-width: 400px;
-        }
-    }
+	.images {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			max-width: 400px;
+		}
+	}
 </style>

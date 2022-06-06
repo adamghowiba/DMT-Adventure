@@ -29,7 +29,7 @@
 
 		&.highlighted:hover {
 			// opacity: 0.9;
-			background-color: rgba(161, 58, 209, 0.090);
+			background-color: rgba(161, 58, 209, 0.09);
 		}
 	}
 </style>

@@ -42,10 +42,34 @@ export const parseSearchDate = (searchDate: SearchDate) => {
 	return new Date(`${month}/${day}/${year}`);
 };
 
-export const dateIsBefore = (currentDate: SearchDate, date: SearchDate) => {
-	return (
-		currentDate.day < date.day || currentDate.month < date.month || currentDate.year < date.year
-	);
+export const dateIsBefore = (currentDate: Date, date: Date) => {
+	return currentDate < date;
+};
+
+export const transformTripDates = (checkIn: Date, checkOut: Date) => {
+	if (isNaN(checkIn.getDate()) || isNaN(checkOut.getDate())) return;
+
+	const checkInMonth = getMonthName(checkIn.getMonth() + 1);
+	const checkOutMonth = getMonthName(checkOut.getMonth() + 1);
+	const formattedCheckOutMonth = checkInMonth === checkOutMonth ? '' : checkOutMonth;
+
+	const checkInDay = checkIn.getDate();
+	const checkOutDay = checkOut.getDate();
+
+	console.log(checkInDay, checkOutDay);
+
+	return `${checkInMonth} ${checkInDay} - ${formattedCheckOutMonth} ${checkOutDay}`;
+};
+
+export const getShortenDate = (date: Date): string => {
+	if (isNaN(new Date(date).getDate())) return date.toString();
+	const current = new Date();
+	const dateOptions: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+	if (date.getFullYear() !== current.getFullYear()) dateOptions['year'] = '2-digit';
+
+	const shortend = date.toLocaleDateString('en-us', dateOptions);
+
+	return shortend;
 };
 
 export const daysMap = [

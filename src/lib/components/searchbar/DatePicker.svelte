@@ -9,11 +9,14 @@
 	export let currentMonth: number;
 	export let pickerType: 'start' | 'end';
 	export let currentYear: number = THIS_YEAR;
+	export let startDate: Date | undefined;
+	export let endDate: Date | undefined;
 
 	const dispatch = createEventDispatcher();
 
-	const handleDayClick = (month: number, day: number, year: number) => {
-		dispatch('clickDate', { month, day, year });
+	const handleDayClick = (date: SearchDate) => {
+		console.log(date);
+		dispatch('clickDate', parseSearchDate(date));
 	};
 
 	const parseSearchDate = (searchDate: SearchDate) => {
@@ -22,33 +25,25 @@
 	};
 
 	const checkHighlighted = (date: SearchDate) => {
-		if (!$searchStore.startDate || !$searchStore.endDate) return;
+		if (!startDate || !endDate) return;
 
 		return dateIsBetween(date);
 	};
 
 	const dateIsBetween = (date: SearchDate) => {
-		if (!$searchStore.startDate || !$searchStore.endDate) return;
+		if (!startDate || !endDate) return;
 
-		const startDate = parseSearchDate($searchStore.startDate);
-		const endDate = parseSearchDate($searchStore.endDate);
 		const parsedDate = parseSearchDate(date);
 
-		return parsedDate >= startDate && parsedDate <= endDate;
+		return parsedDate > startDate && parsedDate < endDate;
 	};
 
 	const isDateSelected = (date: SearchDate) => {
-		const isStartDate =
-			$searchStore.startDate?.day === date?.day &&
-			$searchStore.startDate?.month === date?.month &&
-			$searchStore.startDate.year === date.year;
-			
-		const isEndDate =
-			$searchStore.endDate?.day === date?.day &&
-			$searchStore.endDate.month === date?.month &&
-			$searchStore.endDate.year === date.year;
+		const parsedDate = parseSearchDate(date);
 
-		return isStartDate || isEndDate;
+		return (
+			parsedDate.getTime() === startDate?.getTime() || parsedDate.getTime() === endDate?.getTime()
+		);
 	};
 
 	$: calendar = buildCalendar(currentMonth, currentYear);
@@ -79,19 +74,19 @@
 	</div>
 
 	<div class="day">
-		{#key [$searchStore.startDate, $searchStore.endDate]}
+		{#key [startDate, endDate]}
 			{#each calendar as [month, day, year], i (i)}
-				{#if day === -1}
-					<div class="day__blank" />
-				{:else}
+				{#if day}
 					<div
 						class="day__item"
 						class:highlighted={checkHighlighted({ month, day, year })}
 						class:selected={isDateSelected({ month, day, year })}
-						on:click={() => handleDayClick(month, day, year)}
+						on:click={() => handleDayClick({ month, day, year })}
 					>
 						{day}
 					</div>
+				{:else}
+					<div class="day__blank" />
 				{/if}
 			{/each}
 		{/key}
@@ -170,7 +165,7 @@
 			justify-content: space-between;
 		}
 
-		&__days-item {
-		}
+		// &__days-item {
+		// }
 	}
 </style>

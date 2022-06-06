@@ -32,15 +32,15 @@
 	.details {
 		display: flex;
 		flex-direction: column;
-        gap: var(--space-2xs);
+		gap: var(--space-2xs);
 
 		&__subtitle {
-            font-size: var(--text-h6);
+			font-size: var(--text-h6);
 			color: var(--color-gray-muted);
 		}
 
-        &__title {
-            line-height: 1em;
-        }
+		&__title {
+			line-height: 1em;
+		}
 	}
 </style>

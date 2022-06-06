@@ -1,9 +1,43 @@
+<script context="module" lang="ts">
+	export const load: Load = ({ url }) => {
+		let checkIn = new Date(url.searchParams.get('checkIn') || '');
+		let checkOut = new Date(url.searchParams.get('checkOut') || '');
+		const location = url.searchParams.get('location');
+
+		if (!location)
+			return {
+				error: new Error('Must specify a location'),
+				status: 400
+			};
+
+		if (isNaN(checkIn.getDate())) checkIn = new Date();
+		if (isNaN(checkOut.getDate())) {
+			checkOut = new Date();
+			checkOut.setDate(checkOut.getDate() + 7);
+		}
+
+		return {
+			props: {
+				checkIn,
+				checkOut,
+				location
+			}
+		};
+	};
+</script>
+
 <script lang="ts">
 	import Map from '$lib/components/map/Map.svelte';
+	import SearchNavbar from '$lib/components/navbar/SearchNavbar.svelte';
 	import SearchCard from '$lib/components/search/SearchCard.svelte';
 	import { PLACES } from '$lib/constants/places';
 	import type { Place } from '$lib/types/listing';
+	import type { Load } from '@sveltejs/kit';
 	import type { Popup } from 'leaflet';
+	
+	export let location: string;
+	export let checkIn: Date;
+	export let checkOut: Date;
 
 	type PlaceWithPopup = Place & { popup: Popup };
 	let places = PLACES as PlaceWithPopup[];
@@ -14,38 +48,49 @@
 
 	const handleMouseLeave = (index: number) => {
 		places[index].popup.setContent(`<div class="marker"> $${places[index].total} </div>`);
-	}
+	};
 </script>
 
-<section class="grid">
-	<div class="cards">
-		{#if places.length > 0}
-			<header>
-				<div class="mobile-thumb" />
-				<h5>{places.length} stays in Marco Island Naples, Italy</h5>
-				<hr />
-			</header>
+<section class="wrapper">
+	<SearchNavbar {location} {checkIn} {checkOut} />
 
-			<div class="cards__items">
-				{#each places as card, i}
-					<SearchCard {...card} on:mouseenter={() => handleMouseEnter(i)} on:mouseleave={() => handleMouseLeave(i)} />
-				{/each}
-			</div>
-		{:else}
-			<div class="no-result">
-				<h3>No results</h3>
-				<p>Try changing or removing some of your filters or adjusting your search area.</p>
-				<hr />
-			</div>
-		{/if}
-	</div>
+	<section class="grid">
+		<div class="cards">
+			{#if places.length > 0}
+				<header>
+					<div class="mobile-thumb" />
+					<h5 style:text-transform="capitalize">{places.length} stays in {location}, Nepal</h5>
+					<hr />
+				</header>
 
-	<div class="map">
-		<Map bind:places />
-	</div>
+				<div class="cards__items">
+					{#each places as card, i}
+						<SearchCard
+							{...card}
+							on:mouseenter={() => handleMouseEnter(i)}
+							on:mouseleave={() => handleMouseLeave(i)}
+						/>
+					{/each}
+				</div>
+			{:else}
+				<div class="no-result">
+					<h3>No results</h3>
+					<p>Try changing or removing some of your filters or adjusting your search area.</p>
+					<hr />
+				</div>
+			{/if}
+		</div>
+
+		<div class="map">
+			<Map bind:places />
+		</div>
+	</section>
 </section>
 
 <style lang="scss">
+	.wrapper {
+		height: 100%;
+	}
 	.no-result {
 		display: flex;
 		flex-direction: column;
@@ -67,9 +112,9 @@
 		border-top: 1px solid var(--color-trans);
 	}
 	.grid {
-		display: grid;
+		display: flex;
 		grid-template-columns: 1fr 1fr;
-		height: calc(100vh - 83px);
+		height: calc(100vh - 164px);
 		overflow: hidden;
 	}
 	.map {
@@ -82,7 +127,9 @@
 	}
 	.cards {
 		position: relative;
-		z-index: 1000;
+		z-index: 100;
+		width: 100%;
+		max-width: 750px;
 		background-color: var(--color-white);
 		overflow-y: auto;
 		display: flex;
@@ -118,7 +165,9 @@
 		.cards {
 			position: absolute;
 			width: 100%;
-			transform: translateY(20%);
+			bottom: 0;
+			min-height: 50vh;
+			transform: translateY(70%);
 			overflow-y: unset;
 			border-top-left-radius: 30px;
 			border-top-right-radius: 30px;

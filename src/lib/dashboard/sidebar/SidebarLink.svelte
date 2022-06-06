@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 
 	export let icon: string;
-	export let dropdownLinks: string[] = [];
+	export let dropdownLinks: { name: string; href: string }[] = [];
 	export let iconSize: number = 23;
 	export let href: string | null = null;
 
@@ -12,9 +12,11 @@
 
 <div class="wrapper" class:isDropdownOpen>
 	{#if href && !dropdownLinks.length}
+		<!-- svelte-ignore a11y-missing-content -->
 		<a class="wrapper__link" {href} />
 	{/if}
-	<div class="link" on:click={() => (isDropdownOpen = !isDropdownOpen)}>
+
+	<span class="link" on:click={() => (isDropdownOpen = !isDropdownOpen)}>
 		<Icon {icon} width={iconSize} height={iconSize} color="var(--color-text-body)" />
 
 		<span>
@@ -31,12 +33,12 @@
 				/>
 			</div>
 		{/if}
-	</div>
+	</span>
 
 	{#if dropdownLinks.length && isDropdownOpen}
 		<div class="dropdown" transition:slide={{ duration: 200 }}>
 			{#each dropdownLinks as link}
-				<a href="/" class="dropdown__link">{link}</a>
+				<a href={link.href} class="dropdown__link">{link.name}</a>
 			{/each}
 		</div>
 	{/if}
@@ -55,6 +57,10 @@
 
 		&__dropdown-icon {
 			margin-left: auto;
+		}
+
+		&:hover {
+			cursor: pointer;
 		}
 	}
 
@@ -85,13 +91,16 @@
 	.dropdown {
 		display: flex;
 		flex-direction: column;
-		padding-left: var(--space-xl);
-		gap: var(--space-xs);
-		padding-bottom: var(--space-sm);
+		// border: 1px solid red;
 
 		&__link {
 			transition: border-left 0.25s ease-out;
 			border-left: 4px solid transparent;
+			padding: var(--space-2xs) var(--space-xl);
+		}
+
+		&__link:first-child {
+			padding-top: 0;
 		}
 
 		&__link:hover {

@@ -6,10 +6,11 @@
 </script>
 
 <footer class="footer">
+	<div class="footer__fadeout" />
+
 	<div class="contact-section">
 		<EmailSubscribe />
 	</div>
-	<div class="footer__fadeout" />
 
 	<div class="container">
 		<header>
@@ -73,7 +74,7 @@
 		background-image: url('/images/global/ocean_footer.png');
 		// background-attachment: fixed;
 		background-size: cover;
-		height: 80vh;
+		height: 100vh;
 		position: relative;
 		width: 100%;
 		display: flex;
@@ -125,7 +126,7 @@
 		display: flex;
 		justify-content: center;
 		position: absolute;
-		top: var(--space-md);
+		top: var(--space-4xl);
 		width: 100%;
 		left: 50%;
 		z-index: 1;

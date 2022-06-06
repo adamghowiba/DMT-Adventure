@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Link } from '$lib/types/link-context';
-	import type { Writable } from 'svelte/store';
 	import Button from '../global/Button.svelte';
-
+	
 	export let isReserveVisible: boolean = false;
 	export let linkStore: Link[];
 	export let bookingUrl: string;

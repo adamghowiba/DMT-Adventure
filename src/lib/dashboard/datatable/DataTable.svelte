@@ -18,14 +18,11 @@
 	export let shiftable: boolean = true;
 
 	let selectedRows: number[] = [];
-	let expandedRows: number[] = [];
-
 	let page = 0;
 	let rowsPerPage: number;
 
 	let lastSelectedRow: number;
 	let shiftKeyHeld: boolean = false;
-	let pinnedColumns = [0, 1];
 
 	const dispatch = createEventDispatcher();
 
@@ -102,21 +99,6 @@
 		selectRow(index);
 	};
 
-	/* TODO: Join this and handle select rows */
-	function handleExpandClick(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		if (!target.dataset.row) return;
-
-		const rowIndex = parseInt(target.dataset.row, 10);
-
-		if (expandedRows.length && expandedRows.indexOf(rowIndex) > -1) {
-			expandedRows = expandedRows.filter((row) => row !== rowIndex);
-			return;
-		}
-
-		expandedRows = [...expandedRows, rowIndex];
-	}
-
 	const handleKeyDown = (event: KeyboardEvent) => {
 		if (!shiftable || shiftKeyHeld) return;
 		shiftKeyHeld = event.shiftKey;
@@ -128,15 +110,6 @@
 	};
 
 	const formatData = () => {
-		// const data = rows.map((data) => {
-		// 	const rowItem = Object.entries(columns).reduce((acc, [k, v], i) => {
-		// 		if (data['link']) acc[columns[i].feild] = data[columns[i].feild] || '';
-		// 		return acc;
-		// 	}, {});
-
-		// 	return rowItem;
-		// }, []);
-
 		const columnData = rows.map((data) => {
 			return columns.reduce((acc: any, curr) => {
 				if (data[curr.feild]) acc[curr.feild] = data[curr.feild];

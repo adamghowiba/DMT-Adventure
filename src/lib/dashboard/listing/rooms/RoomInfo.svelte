@@ -1,13 +1,10 @@
 <script lang="ts">
-	import Hr from '$lib/components/global/HR.svelte';
 	import Select from '$lib/components/input/Select.svelte';
 	import TextArea from '$lib/components/input/TextArea.svelte';
 	import TextInput from '$lib/components/input/TextInput.svelte';
+	import type { Room,RoomType } from '$lib/types/listing';
 	import RoomWrapper from './RoomWrapper.svelte';
-	import type { Room, RoomType } from '$lib/types/listing';
-	import BottomBar from '../BottomBar.svelte';
-	import { page } from '$app/stores';
-
+	
 	export let roomInfo: Partial<Pick<Room, 'roomType' | 'stock' | 'name'>>;
 
 	const roomItems: { name: string; value: RoomType }[] = [
@@ -32,7 +29,6 @@
 			value: 'triple'
 		}
 	];
-
 </script>
 
 <RoomWrapper>

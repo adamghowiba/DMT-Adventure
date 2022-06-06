@@ -45,17 +45,17 @@
 
 <style lang="scss">
 	nav {
-        position: fixed;
+		position: fixed;
 		top: 0;
 		left: 0;
-        width: 100%;
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		min-height: 83px;
 		background-color: var(--color-white);
 		z-index: 10;
-        padding: 0 var(--space-sm);
+		padding: 0 var(--space-sm);
 		border-bottom: 1px solid var(--color-trans);
 
 		.logo {

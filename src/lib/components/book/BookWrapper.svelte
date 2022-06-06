@@ -1,7 +1,4 @@
 <script lang="ts">
-	import type { LinkContext } from '$lib/types/link-context';
-	import { getContext, onMount, setContext } from 'svelte';
-
 	export let gap: string | null = null;
 	export let title: string | null = null;
 	export let hr: boolean = true;

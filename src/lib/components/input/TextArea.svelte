@@ -37,10 +37,6 @@
 			border: 1px solid var(--color-primary);
 			border-bottom-width: 2px;
 		}
-
-		&:focus + .placeholder {
-			display: none;
-		}
 	}
 
 	.textarea::placeholder {
@@ -48,13 +44,6 @@
 	}
 	.textarea-wrap {
 		position: relative;
-
-		.placeholder {
-			color: var(--color-gray-light);
-			position: absolute;
-			top: var(--space-xs);
-			left: var(--space-xs);
-		}
 	}
 	@media screen and (max-width: 375px) {
 		.textarea {

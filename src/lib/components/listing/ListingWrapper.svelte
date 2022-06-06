@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { LinkContext } from '$lib/types/link-context';
-	import { getContext, onMount, setContext } from 'svelte';
-
+	import { getContext,onMount } from 'svelte';
+		
 	export let gap: string | null = null;
 	export let title: string | null = null;
 	export let hr: boolean = true;
@@ -35,7 +35,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-xs);
-		
+
 		&.hr {
 			padding-top: var(--space-md);
 			border-top: 1px solid var(--color-trans);

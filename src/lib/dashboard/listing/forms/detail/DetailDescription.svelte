@@ -1,10 +1,9 @@
 <script lang="ts">
 	import Hr from '$lib/components/global/HR.svelte';
 	import TextArea from '$lib/components/input/TextArea.svelte';
-	import TextInput from '$lib/components/input/TextInput.svelte';
 	import FormWrapper from '../../FormWrapper.svelte';
 	import InputWrapper from '../../InputWrapper.svelte';
-
+	
 	export let title: string = 'Listing description';
 
 	interface DataInputs {

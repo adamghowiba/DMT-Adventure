@@ -23,7 +23,8 @@
 
 	const COLORS = {
 		purple: 'var(--color-primary)',
-		black: 'var(--color-gray-dark)'
+		black: 'var(--color-gray-dark)',
+		white: "var(--color-white)"
 	};
 
 	const DEFAULT_ICON_STYLES: IconStyles = {
@@ -106,6 +107,7 @@
 		padding: 14px 24px;
 		width: var(--width);
 		height: var(--height);
+		white-space: nowrap;
 
 		/* Size */
 		&.large {

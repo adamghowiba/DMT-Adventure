@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { space } from 'svelte/internal';
-
 	export let title: string;
 	export let price: number;
 	export let description: string | null = null;
@@ -33,23 +31,23 @@
 	}
 
 	.details {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        max-width: 20ch;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		max-width: 20ch;
 
-        &__title {
+		&__title {
 			font-size: var(--text-base-lg);
 		}
 
 		li {
 			margin-left: var(--space-2xs);
-            text-transform: capitalize;
+			text-transform: capitalize;
 		}
-        
+
 		span,
 		li {
-            font-size: var(--text-h6);
+			font-size: var(--text-h6);
 			color: var(--color-gray-muted);
 		}
 	}

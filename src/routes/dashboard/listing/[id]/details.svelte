@@ -21,13 +21,13 @@
 	import DetailDescription from '$lib/dashboard/listing/forms/detail/DetailDescription.svelte';
 	import DetailTitle from '$lib/dashboard/listing/forms/detail/DetailTitle.svelte';
 	import FormWrapper from '$lib/dashboard/listing/FormWrapper.svelte';
-	import InputWrapper from '$lib/dashboard/listing/InputWrapper.svelte';
 	import ListingEditContainer from '$lib/dashboard/listing/ListingEditContainer.svelte';
 	import ListingWrap from '$lib/dashboard/listing/ListingWrap.svelte';
 	import type { Place } from '$lib/types/listing';
 	import type { Load } from '@sveltejs/kit';
-
-	export let listingId: number;
+	
+	// Commented out due to being unsued.
+	// export let listingId: number;
 	export let listingData: Place;
 </script>
 
@@ -43,7 +43,11 @@
 
 	<ListingWrap title="Room Packages" gap={false}>
 		<FormWrapper href="rooms">
-			<div class="rooms" slot="value">Value</div>
+			<div class="rooms" slot="value">
+				{#each listingData.rooms as room}
+					<span>{room.name} - ${room.price}</span>
+				{/each}
+			</div>
 		</FormWrapper>
 	</ListingWrap>
 
@@ -57,5 +61,14 @@
 <style lang="scss">
 	.filler {
 		height: 50vh;
+	}
+	.rooms {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2xs);
+
+		span {
+			color: var(--color-gray-muted);
+		}
 	}
 </style>

@@ -22,7 +22,7 @@
 		gap: var(--space-md);
 		width: 100%;
 		max-width: 600px;
-        padding: 0 var(--space-sm);
+		padding: 0 var(--space-sm);
 	}
 
 	form {

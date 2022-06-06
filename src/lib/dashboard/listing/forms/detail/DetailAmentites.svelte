@@ -46,7 +46,7 @@
 			title="Property amentities"
 			description="These are amenities that guests typically look for in a stay."
 		>
-			{#each Object.entries(amentities) as [key, value]}
+			{#each Object.entries(amentities) as [key]}
 				<Checkbox label={key.replace('_', ' ')} name={key} bind:checked={amentitiesClone[key]} />
 			{/each}
 		</InputWrapper>
@@ -61,6 +61,7 @@
 
 		&__amenity {
 			text-transform: capitalize;
+			color: var(--color-gray-muted);
 		}
 	}
 	.inputs {

@@ -7,4 +7,3 @@ export const roomSchema = object({
 	id: number().required(),
 	stock: number().required()
 });
-

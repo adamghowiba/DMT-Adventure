@@ -1,8 +1,7 @@
 <script lang="ts">
 	import TextInput from '$lib/components/input/TextInput.svelte';
-	import type { Room } from '$lib/types/listing';
 	import RoomWrapper from './RoomWrapper.svelte';
-
+	
 	export let roomPrice: number | undefined;
 </script>
 

@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { listingStore } from '$lib/stores/listingNav-store';
-	import type {
-	ListingNavGroups,
-	ListingNavLink
-	} from '$lib/types/link-context';
+	import type { ListingNavGroups, ListingNavLink } from '$lib/types/link-context';
 	import { getContext } from 'svelte';
 
 	export let title: string;

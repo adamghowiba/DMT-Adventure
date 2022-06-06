@@ -9,8 +9,10 @@
 </script>
 
 <div class="bar">
-	<Button style="empty" icon="akar-icons:chevron-left" on:click={() => dispatch('back')}>Go back</Button>
-	<Button on:click={() => dispatch('save')} disabled={disabled}>{saveActionName}</Button>
+	<Button style="empty" icon="akar-icons:chevron-left" on:click={() => dispatch('back')}
+		>Go back</Button
+	>
+	<Button on:click={() => dispatch('save')} {disabled}>{saveActionName}</Button>
 </div>
 
 <style lang="scss">

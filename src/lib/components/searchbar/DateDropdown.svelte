@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DatePicker from '$lib/components/searchbar/DatePicker.svelte';
 	import {
 		dateIsBefore,
 		getNextMonth,
@@ -6,29 +7,31 @@
 		THIS_MONTH,
 		THIS_YEAR
 	} from '$lib/helpers/date-helper';
-	import { searchStore } from '$lib/stores/search-store';
-	import type { SearchDate } from '$lib/types/Date';
-	import DatePicker from '$lib/components/searchbar/DatePicker.svelte';
+	import { createEventDispatcher } from 'svelte';
 
 	let currentMonth: number = THIS_MONTH;
 	let currentYear: number = THIS_YEAR;
 
+	export let startDate: Date | undefined;
+	export let endDate: Date | undefined;
+
 	$: nextMonth = getNextMonth(currentMonth, THIS_YEAR).month;
 
-	const handleDateClick = ({ detail: date }: { detail: SearchDate }) => {
-		if ($searchStore.startDate && dateIsBefore(date, $searchStore.startDate)) {
-			searchStore.setStartDate(date);
-			$searchStore.endDate = undefined;
-			console.log('Clickecd before');
+	const dispatch = createEventDispatcher();
+
+	const handleDateClick = ({ detail: date }: { detail: Date }) => {
+		if (startDate && dateIsBefore(date, startDate)) {
+			startDate = date;
+			endDate = undefined;
 			return;
 		}
 
-		if ($searchStore.startDate) {
-			searchStore.setEndDate(date);
+		if (startDate) {
+			endDate = date;
 			return;
 		}
 
-		searchStore.setStartDate(date);
+		startDate = date;
 	};
 
 	const handlePreviousCalendarClick = () => {
@@ -50,13 +53,17 @@
 			pickerType="start"
 			{currentMonth}
 			{currentYear}
+			{startDate}
+			{endDate}
 			on:clickPrevious={handlePreviousCalendarClick}
 			on:clickDate={handleDateClick}
 		/>
 		<DatePicker
 			pickerType="end"
 			currentMonth={nextMonth}
-			{currentYear}
+			currentYear={(currentMonth == 12 ? currentYear + 1 : currentYear)}
+			{startDate}
+			{endDate}
 			on:clickNext={handleNextCalendarClick}
 			on:clickDate={handleDateClick}
 		/>
@@ -77,9 +84,7 @@
 		gap: var(--space-lg);
 		display: flex;
 		height: 330px;
-	}
-
-	h3 {
-		color: var(--color-white);
+		position: relative;
+		z-index: 100;
 	}
 </style>

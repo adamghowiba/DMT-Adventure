@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { REVIEWS } from '$lib/constants/reviews';
 	import type { Review as ReviewType } from '$lib/types/listing';
 	import Button from '../global/Button.svelte';
 	import ListingWrapper from './ListingWrapper.svelte';
 	import Review from './Review.svelte';
 	import ReviewHeader from './ReviewHeader.svelte';
-
+	
 	export let reviews: ReviewType[] | undefined;
 
 	let defaultReviewCount = 6;
@@ -55,6 +54,12 @@
 
 		span:hover {
 			cursor: pointer;
+		}
+	}
+
+	@media screen and (max-width: 597px) {
+		.reviews {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

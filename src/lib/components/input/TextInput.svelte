@@ -1,22 +1,34 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	export let type: 'text' | 'email' | 'date' | 'div' | 'number' = 'text';
 	export let placeholder: string | null = null;
 	export let name: string;
 	export let value: any = '';
 	export let focusStyle: 'top' | 'inner' | 'none' = placeholder ? 'inner' : 'none';
 	export let required: boolean = false;
+	export let textTransform: 'capitalize' | 'uppercase' | 'none' = 'none';
+	export let autoComplete: boolean = false;
 
-	export let borderRadius = 'var(--br-lg)';
+	export let borderRadius = 'var(--br-sm)';
 	export let disabled: boolean = false;
 	export let maxWidth: string = 'none';
 	export let width: string = '100%';
+	export let borderColor: string = 'var(--color-gray-light)';
 
 	let error: boolean = false;
+
+	const dispatch = createEventDispatcher();
 
 	const handleInput = (event: Event) => {
 		const target = event.target as HTMLInputElement;
 		const valid = target.checkValidity();
 		error = !valid;
+	};
+
+	const handleBlur = (event: Event) => {
+		handleInput(event);
+		dispatch('blur', event);
 	};
 </script>
 
@@ -24,29 +36,46 @@
 	class="wrapper"
 	class:error
 	on:click
-	style="--borderRadius: {borderRadius}; --maxWidth: {maxWidth}; --width: {width};"
+	style:text-transform={textTransform}
+	style="--borderRadius: {borderRadius}; --maxWidth: {maxWidth}; --width: {width}; --borderColor: {borderColor};"
 >
 	{#if type === 'text'}
 		<input
 			type="text"
+			autocomplete={autoComplete ? 'on' : 'off'}
 			class:entered={value}
 			class={focusStyle}
 			{name}
 			{required}
 			{disabled}
 			bind:value
-			on:blur={handleInput}
+			on:blur={handleBlur}
 			on:input={handleInput}
 			on:focus
 		/>
 	{:else if type === 'email'}
-		<input type="email" {name} {disabled} {required} bind:value />
+		<input
+			type="email"
+			{name}
+			{disabled}
+			{required}
+			autocomplete={autoComplete ? 'on' : 'off'}
+			bind:value
+		/>
 	{:else if type === 'date'}
-		<input type="date" {name} {disabled} {required} bind:value />
+		<input
+			type="date"
+			{name}
+			{disabled}
+			{required}
+			autocomplete={autoComplete ? 'on' : 'off'}
+			bind:value
+		/>
 	{:else if type === 'number'}
 		<input
 			type="number"
 			class:entered={value}
+			autocomplete={autoComplete ? 'on' : 'off'}
 			class={focusStyle}
 			{name}
 			{required}
@@ -86,16 +115,18 @@
 	input {
 		appearance: none;
 		width: var(--width);
+
 		border: none;
 		background-color: transparent;
+		text-transform: inherit;
 		padding: var(--space-xs);
-		border-radius: var(--borderRadius, var(--br-lg));
-		border: 1px solid var(--color-gray-light);
+		border-radius: var(--borderRadius, var(--br-sm));
 		outline: none;
 		font-size: var(--text-base-lg);
 		min-height: 56px;
 		transition: border 0.1s ease-out;
 		color: var(--color-text-body);
+		border: 1px solid var(--borderColor);
 
 		&:focus {
 			border: 1px solid var(--color-primary);

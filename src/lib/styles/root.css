@@ -114,5 +114,10 @@
 		--space-xl: 40px;
 		--space-2xl: 56px;
 		--space-3xl: 64px;
+
+		/* headings */
+		--text-h1: 27.3px;
+		--text-h2: 21.9px;
+		--text-h3: 17.5px;
 	}
 }

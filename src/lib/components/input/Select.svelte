@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	export let items: { name: string; value: any }[];
+	export let items: { name: string; value?: any }[];
 	export let placeholder: string | null = null;
 	export let value: any = placeholder;
 
@@ -12,7 +12,7 @@
 	<select placeholder="adam" class:unselected bind:value class:entered={!unselected}>
 		<option default disabled selected hidden class="default" />
 		{#each items as item}
-			<option value={item.value}>{item.name}</option>
+			<option value={item?.value || item.name}>{item.name}</option>
 		{/each}
 	</select>
 
@@ -57,7 +57,6 @@
 		span {
 			padding: 0 2px;
 			color: var(--color-gray-light);
-			background-color: var(--color-white);
 		}
 
 		&.entered {

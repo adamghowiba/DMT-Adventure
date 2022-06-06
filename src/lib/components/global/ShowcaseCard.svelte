@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { fade, slide, fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import LocalIcon from './LocalIcon.svelte';
-
+	
 	export let imgSrc: string;
 	export let imgAlt: string | null = null;
 	export let rating: number;

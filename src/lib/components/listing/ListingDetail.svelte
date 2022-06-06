@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let title: string;
-    export let border: boolean = true;
+	export let border: boolean = true;
 </script>
 
 <div class="detail" class:border>
@@ -14,23 +14,32 @@
 
 <style lang="scss">
 	.detail {
-		display: flex;
+		display: grid;
+		grid-template-columns: 0.5fr 1fr;
 		align-items: center;
 		gap: var(--space-xl);
 		padding: var(--space-md) 0;
-        
-        &.border {
-            border-bottom: 1px solid var(--color-trans);
-        }
+
+		&.border {
+			border-bottom: 1px solid var(--color-trans);
+		}
 
 		h4 {
 			font-size: var(--text-h3);
 			max-width: 20ch;
 			font-weight: var(--fw-regular);
 		}
-        
-        &__title {
-            min-width: 300px;
-        }
+	}
+
+	@media screen and (max-width: 597px) {
+		.detail {
+			gap: var(--space-md);
+		}
+	}
+
+	@media screen and (max-width: 425px) {
+		.detail {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

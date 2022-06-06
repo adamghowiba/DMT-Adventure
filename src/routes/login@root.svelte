@@ -3,7 +3,7 @@
 	import ImageSlider from '$lib/components/auth/ImageSlider.svelte';
 	import Button from '$lib/components/global/Button.svelte';
 	import TextInput from '$lib/components/input/TextInput.svelte';
-</script>
+	</script>
 
 <main class="grid">
 	<div class="login">
@@ -15,9 +15,9 @@
 				<TextInput type="text" placeholder="email" name="" />
 				<TextInput type="text" placeholder="password" name="" />
 				<Button width="100%">Login</Button>
-				<span class="forgot"
-					>Forgot password? <a class="link" href="/forgot">Reset Password</a></span
-				>
+				<span class="forgot">
+					Forgot password? <a class="link" href="/forgot">Reset Password</a>
+				</span>
 			</form>
 		</div>
 	</div>

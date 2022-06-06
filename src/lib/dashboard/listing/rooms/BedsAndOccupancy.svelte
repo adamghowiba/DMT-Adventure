@@ -7,7 +7,7 @@
 	import RoomWrapper from './RoomWrapper.svelte';
 
 	export let beds: Beds[] = [{ type: 'twin', count: 1 }];
-	
+
 	const bedItems: { name: string; value: BedType }[] = [
 		{ name: 'Twin/Single Bed', value: 'twin' },
 		{ name: 'Full Bed', value: 'full' },
@@ -33,10 +33,10 @@
 		</header>
 
 		<div class="beds">
-			{#each beds as bed, i}
+			{#each beds as _, i}
 				<div class="bed">
 					<Select placeholder="Bed Type" items={bedItems} bind:value={beds[i].type} />
-                    
+
 					<TextInput type="number" name="quantity" placeholder="QTY" bind:value={beds[i].count} />
 					<div class="bed__icon" on:click={() => removeBedType(i)}>
 						<Icon icon="gg:close-o" color="var(--color-red)" width={35} height={35} />

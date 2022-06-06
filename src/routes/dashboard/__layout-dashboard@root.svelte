@@ -1,8 +1,7 @@
 <script lang="ts">
-	import Navbar from '$lib/components/navbar/Navbar.svelte';
 	import DashboardNavbar from '$lib/dashboard/DashboardNavbar.svelte';
 	import Sidebar from '$lib/dashboard/sidebar/Sidebar.svelte';
-</script>
+	</script>
 
 <main>
 	<DashboardNavbar />

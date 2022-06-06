@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import ShowcaseCard from '../global/ShowcaseCard.svelte';
-	import DateDropdown from '../searchbar/DateDropdown.svelte';
+	import { onMount } from 'svelte';
+	import Button from '../../components/global/Button.svelte';
+	import ShowcaseCard from '../../components/global/ShowcaseCard.svelte';
 
 	export let title: string;
 
@@ -57,24 +58,84 @@
 	];
 
 	const handleNextSlide = () => {
-		const cards = showcaseCardsElement.querySelectorAll<HTMLElement>('.card');
-		const lastCard = cards[cards.length - 1];
-		const lastCardX = lastCard.getBoundingClientRect().x;
-
-		if (lastCardX + cardFullWidth / 2 - window.innerWidth <= 0) return;
+		if (currentSlide >= SHOWCASE_CARDS.length - 1) return;
 
 		showcaseCardsElement.style.transform = `translateX(-${cardFullWidth * ++currentSlide}px)`;
 	};
+
+	const setSlide = (index: number): unknown => {
+		if (index >= SHOWCASE_CARDS.length) return setSlide(SHOWCASE_CARDS.length - 1);
+		if (index < 0) return setSlide(0);
+
+		showcaseCardsElement.style.transitionDuration = '0.35s';
+		showcaseCardsElement.style.transitionTimingFunction = 'ease-out';
+
+		showcaseCardsElement.style.transform = `translateX(-${cardFullWidth * index}px)`;
+		currentSlide = index;
+	};
+
+	let isMouseDown: boolean = false;
 
 	const handlePreviousSlide = () => {
 		if (currentSlide == 0) return;
 
 		showcaseCardsElement.style.transform = `translateX(-${cardFullWidth * --currentSlide}px)`;
 	};
+
+	const handleMouseMove = (event: MouseEvent) => {
+		if (!isMouseDown) return;
+	};
+
+	let currentTouchX: number = 0;
+	let startingTouchX: number = 0;
+	let currentTransformAmount: number = 0;
+
+	const handleTouchMove = (event: TouchEvent) => {
+		event.preventDefault();
+		currentTouchX = event.touches[0].clientX;
+
+		let newDistance = currentTouchX - startingTouchX;
+
+		showcaseCardsElement.style.transform = `translateX(${newDistance}px)`;
+	};
+
+	const handleTouchEnd = (event: TouchEvent) => {
+		currentTransformAmount = ~showcaseCardsElement.getBoundingClientRect().left;
+
+		const cardSnap = Math.round(currentTransformAmount / cardFullWidth);
+		console.log(cardSnap);
+		setSlide(cardSnap);
+	};
+
+	const handleTouchStart = (event: TouchEvent) => {
+		showcaseCardsElement.style.transitionDuration = '0.028s';
+		showcaseCardsElement.style.transitionTimingFunction = 'linear';
+		currentTransformAmount = ~showcaseCardsElement.getBoundingClientRect().left;
+
+		startingTouchX = currentTransformAmount + event.touches[0].pageX;
+	};
+
+	onMount(() => {
+		showcaseCardsElement.addEventListener('touchmove', handleTouchMove, { passive: true });
+		showcaseCardsElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+		showcaseCardsElement.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+		return () => {
+			showcaseCardsElement.removeEventListener('touchmove', handleTouchMove);
+			showcaseCardsElement.removeEventListener('touchstart', handleTouchStart);
+			showcaseCardsElement.addEventListener('touchend', handleTouchEnd);
+		};
+	});
 	// $: console.log('Current side', currentSlide);
 </script>
 
-<section class="showcase section" style="--cardGap: {cardGap}px;">
+<section
+	class="showcase section container"
+	style="--cardGap: {cardGap}px;"
+	on:mousemove={handleMouseMove}
+	on:mousedown={() => (isMouseDown = true)}
+	on:mouseup={() => (isMouseDown = false)}
+>
 	<h1 class="showcase__title">{title}</h1>
 
 	<div class="cards-wrap">
@@ -82,6 +143,15 @@
 			{#each SHOWCASE_CARDS as card, i}
 				<ShowcaseCard bind:cardWidth {...card} active={i === currentSlide} />
 			{/each}
+			<div class="card-empty">
+				<h3>Search For Location</h3>
+				<p>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur, nemo. Nihil, non
+					saepe ratione aliquid libero impedit! Id explicabo in officia? Nesciunt consequatur
+					consequuntur esse ducimus atque a numquam eligendi.
+				</p>
+				<Button>Explore</Button>
+			</div>
 		</div>
 	</div>
 
@@ -112,8 +182,6 @@
 		align-items: center;
 		position: relative;
 		gap: var(--space-3xl);
-		// overflow-x: hidden;
-
 		padding-left: var(--space-section-sm);
 		margin-bottom: var(--space-section-base);
 		padding-bottom: 0;
@@ -137,8 +205,8 @@
 		display: flex;
 		flex: 1 0 auto;
 		gap: var(--cardGap);
+		transition: transform 0.25s ease-in-out;
 		// transform: translateX(110px);
-		transition: transform 0.18s ease-in-out;
 		// overflow: hidden;
 
 		&__controls {
@@ -148,6 +216,20 @@
 			// bottom: 7rem;
 			bottom: 1rem;
 			gap: var(--space-xs);
+		}
+	}
+	.card-empty {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		min-width: 312px;
+		width: 100%;
+		margin: auto;
+		gap: var(--space-2xs);
+
+		p {
+			margin-bottom: var(--space-2xs);
 		}
 	}
 
@@ -177,9 +259,12 @@
 			flex-direction: column;
 			padding-left: var(--space-xs);
 			padding-right: var(--space-xs);
+			gap: var(--space-md);
 
 			&__title {
+				max-width: 20ch;
 				text-align: center;
+				font-size: 40px;
 			}
 		}
 		.cards-wrap {
@@ -188,9 +273,22 @@
 		}
 
 		.cards {
+			transition: transform 0.028s linear;
+
 			&__controls {
 				bottom: -1rem;
 				transform: translateY(100%);
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.showcase {
+			gap: var(--space-sm);
+
+			&__title {
+				text-align: center;
+				font-size: 35px;
 			}
 		}
 	}

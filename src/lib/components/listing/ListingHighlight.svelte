@@ -4,7 +4,7 @@
 	export let title: string;
 	export let desc: string;
 	export let icon: string;
-    export let iconRotate: number = 0;
+	export let iconRotate: number = 0;
 </script>
 
 <div class="highlight">
@@ -17,8 +17,8 @@
 </div>
 
 <style lang="scss">
-    .highlight {
-        display: flex;
-        gap: var(--space-2xs);
-    }
+	.highlight {
+		display: flex;
+		gap: var(--space-2xs);
+	}
 </style>

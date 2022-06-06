@@ -6,8 +6,11 @@
 	import { onMount } from 'svelte';
 
 	export let activeSection: ListingNavGroups;
+
 	let barLinksElement: HTMLElement;
 	let innerTrackerElement: HTMLElement;
+	let interectingGroup: string;
+	let observer: IntersectionObserver;
 
 	const getNavSectionEntires = (section: ListingNav) => {
 		return Object.entries(section) as [ListingNavGroups, ListingNavGroup][];
@@ -27,8 +30,6 @@
 		return lastPath;
 	};
 
-	let interectingGroup: string;
-	let observer: IntersectionObserver;
 	const handleIntersection: IntersectionObserverCallback = (entries, observer) => {
 		entries.forEach((entry) => {
 			const target = entry.target as HTMLElement;
@@ -71,7 +72,7 @@
 	<div class="bar">
 		{#each getNavSectionEntires($listingStore) as [key, value]}
 			<a
-				href="{value.href.replace('/', '')}"
+				href={value.href.replace('/', '')}
 				class="bar__group"
 				on:click={() => (activeSection = key)}
 			>

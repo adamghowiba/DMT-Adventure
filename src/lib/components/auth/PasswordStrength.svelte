@@ -104,4 +104,10 @@
 			background-color: var(--color-green);
 		}
 	}
+
+	@media screen and (max-width: 425px) {
+		.strength {
+			gap: var(--space-2xs);
+		}
+	}
 </style>
