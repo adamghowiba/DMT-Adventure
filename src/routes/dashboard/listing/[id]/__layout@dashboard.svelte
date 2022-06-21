@@ -18,9 +18,6 @@
 		flex-direction: column;
 		gap: var(--space-lg);
 	}
-	.filler {
-		height: 50vh;
-	}
 	main {
 		position: relative;
 		display: grid;

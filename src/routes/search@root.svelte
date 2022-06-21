@@ -35,7 +35,7 @@
 	import type { Place } from '$lib/types/listing';
 	import type { Load } from '@sveltejs/kit';
 	import type { Popup } from 'leaflet';
-	
+
 	export let location: string;
 	export let checkIn: Date;
 	export let checkOut: Date;
@@ -162,6 +162,7 @@
 		.grid {
 			grid-template-columns: 1fr;
 			grid-template-rows: 1fr 1fr;
+			overflow: unset;
 		}
 		.cards {
 			position: absolute;
@@ -188,6 +189,9 @@
 			margin: 0 auto;
 			margin-top: -10px;
 		}
+		.no-result {
+			align-items: center;
+		}
 		header {
 			text-align: center;
 
@@ -197,12 +201,20 @@
 		}
 		.map {
 			position: fixed;
+			top: 0;
+			z-index: 1;
 			height: 100%;
 		}
 	}
 
 	@media screen and (max-width: 550px) {
 		.cards {
+			bottom: 0;
+			transform: translateY(90%);
+			min-height: 100vh;
+			background-color: white;
+			height: max-content;
+
 			&__items {
 				display: grid;
 				grid-template-columns: 1fr;

@@ -26,9 +26,9 @@
 
 	let NAV_LINKS: NavbarLink[] = [
 		{
-			name: 'Help',
+			name: 'Contat',
 			icon: 'bx:help-circle',
-			href: '/'
+			href: '/contact'
 		}
 	];
 </script>
@@ -100,6 +100,9 @@
 <style lang="scss">
 	.wrapper {
 		border-bottom: 1px solid var(--color-trans);
+		background-color: var(--color-white);
+		position: relative;
+		z-index: 100;
 	}
 	.search {
 		max-width: 800px;

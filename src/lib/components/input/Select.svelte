@@ -52,7 +52,7 @@
 		align-items: center;
 		transition: transform 0.18s ease-out, font-size 0.15s ease-out;
 		pointer-events: none;
-		font-size: var(--text-base-lg);
+		font-size: var(--text-base);
 
 		span {
 			padding: 0 2px;

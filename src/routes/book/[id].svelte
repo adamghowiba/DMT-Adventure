@@ -56,7 +56,7 @@
 
 	// Commented out: Unused
 	// export let listingId: number;
-	
+
 	export let selectedRooms: string[];
 	export let checkIn: string;
 	export let checkOut: string;
@@ -92,13 +92,15 @@
 			<Button size="large">Confirm and pay</Button>
 		</div>
 
-		<BookRail title={listingData.title} thumbnail={listingData.imgSrc}>
-			{#each getSelectedRooms(selectedRooms) as room}
-				{#if room}
-					<RailItem title={room.name} price={room.price} />
-				{/if}
-			{/each}
-		</BookRail>
+		<div class="rail">
+			<BookRail title={listingData.title} thumbnail={listingData.imgSrc}>
+				{#each getSelectedRooms(selectedRooms) as room}
+					{#if room}
+						<RailItem title={room.name} price={room.price} />
+					{/if}
+				{/each}
+			</BookRail>
+		</div>
 	</div>
 </div>
 
@@ -124,5 +126,15 @@
 	.terms {
 		padding: var(--space-2xs) 0;
 		font-size: var(--text-h6);
+	}
+
+	@media screen and (max-width: 768px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+
+		.rail {
+			grid-row: 1/1;
+		}
 	}
 </style>

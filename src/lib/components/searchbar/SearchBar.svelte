@@ -72,7 +72,7 @@
 			type="text"
 			name="place"
 			placeholder="Start Date"
-			disabled
+			readonly
 			bind:value={shortenedCheckIn}
 			borderRadius="7px 0px 0px 7px"
 			focusStyle="inner"
@@ -83,7 +83,7 @@
 			type="text"
 			name="place"
 			placeholder="End date"
-			disabled
+			readonly
 			bind:value={shortenedCheckOut}
 			focusStyle="inner"
 			borderColor="var(--color-primary)"

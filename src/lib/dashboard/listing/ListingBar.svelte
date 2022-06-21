@@ -11,6 +11,7 @@
 	let innerTrackerElement: HTMLElement;
 	let interectingGroup: string;
 	let observer: IntersectionObserver;
+	let isLoaded: boolean = false;
 
 	const getNavSectionEntires = (section: ListingNav) => {
 		return Object.entries(section) as [ListingNavGroups, ListingNavGroup][];
@@ -23,11 +24,11 @@
 	};
 
 	/* ! Caution: This assume the laast URL pathanme is the location EX. /dashboard/listing/{details} */
-	const getActiveSection = () => {
+	const getActiveSection = (): ListingNavGroups => {
 		const URLPaths = $page.url.pathname.split('/');
 		const lastPath = URLPaths[URLPaths.length - 1];
 
-		return lastPath;
+		return lastPath as ListingNavGroups;
 	};
 
 	const handleIntersection: IntersectionObserverCallback = (entries, observer) => {
@@ -54,7 +55,7 @@
 			threshold: 0,
 			rootMargin: '-30% 0% -70% 0%'
 		});
-		// @ts-ignore
+
 		$listingStore[getActiveSection()].links.forEach((link) => {
 			if (!link.element) return;
 			observer.observe(link.element);

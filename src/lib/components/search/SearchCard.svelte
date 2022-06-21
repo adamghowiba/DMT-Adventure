@@ -1,4 +1,5 @@
 <script lang="ts">
+import { page } from '$app/stores';
 	import RatingShort from '../global/RatingShort.svelte';
 
 	export let title: string;
@@ -14,7 +15,7 @@
 	// export let isNew: boolean = false;
 </script>
 
-<a href="/place/{encodeURIComponent(title)}" class="card" on:mouseenter on:mouseleave>
+<a href="/place/{encodeURIComponent(title)}?{$page.url.searchParams.toString()}" class="card" on:mouseenter on:mouseleave>
 	<img class="card__thumbnail" src={imgSrc} alt={title} />
 
 	<div class="card__body">

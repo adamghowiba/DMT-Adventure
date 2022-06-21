@@ -29,10 +29,11 @@
 		// 	icon: 'akar-icons:person',
 		// 	href: '/login'
 		// },
+
 		{
-			name: 'Help',
+			name: 'Contat',
 			icon: 'bx:help-circle',
-			href: '/'
+			href: '/contact'
 		}
 	];
 </script>
@@ -47,7 +48,7 @@
 			<a href={link.href} class="item">
 				<Icon
 					icon={link.icon}
-					color="{ICON_PROPS.color}"
+					color={ICON_PROPS.color}
 					width={ICON_PROPS.size}
 					height={ICON_PROPS.size}
 				/>
@@ -63,7 +64,7 @@
 			>
 				<img src="/images/global/no_avatar.png.png" class="avatar" alt="Placeholder Avatar" />
 				<h4>{$session.user.firstName} {$session.user.lastName.substring(0, 1)}.</h4>
-				<Icon icon="akar-icons:chevron-down" height={15} width={15} color="{ICON_PROPS.color}" />
+				<Icon icon="akar-icons:chevron-down" height={15} width={15} color={ICON_PROPS.color} />
 
 				{#if isProfileDropdownOpen}
 					<NavbarDropdown />
@@ -73,7 +74,7 @@
 			<a href="/signup" class="item">
 				<Icon
 					icon="akar-icons:person-add"
-					color="{ICON_PROPS.color}"
+					color={ICON_PROPS.color}
 					width={ICON_PROPS.size}
 					height={ICON_PROPS.size}
 				/>
@@ -82,12 +83,21 @@
 			<div href="/login" class="item">
 				<Icon
 					icon="akar-icons:person-add"
-					color="{ICON_PROPS.color}"
+					color={ICON_PROPS.color}
 					width={ICON_PROPS.size}
 					height={ICON_PROPS.size}
 				/>
 				<h4>Login</h4>
 			</div>
+			<a href="/login" class="item">
+				<Icon
+					icon="akar-icons:person-add"
+					color={ICON_PROPS.color}
+					width={ICON_PROPS.size}
+					height={ICON_PROPS.size}
+				/>
+				<h4>Login</h4>
+			</a>
 		{/if}
 		<Button style="border" size="small" color="purple">Get Started</Button>
 	</div>

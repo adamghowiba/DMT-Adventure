@@ -25,9 +25,7 @@
 	import ListingWrap from '$lib/dashboard/listing/ListingWrap.svelte';
 	import type { Place } from '$lib/types/listing';
 	import type { Load } from '@sveltejs/kit';
-	
-	// Commented out due to being unsued.
-	// export let listingId: number;
+
 	export let listingData: Place;
 </script>
 
@@ -54,8 +52,6 @@
 	<ListingWrap title="Amentities" gap={false}>
 		<DetailAmentites />
 	</ListingWrap>
-
-	<div class="filler" />
 </ListingEditContainer>
 
 <style lang="scss">

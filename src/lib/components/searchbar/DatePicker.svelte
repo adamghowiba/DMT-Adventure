@@ -50,20 +50,10 @@
 
 <div class="picker">
 	<header class="header">
-		<div class="header__icon header__icon--left" on:click={() => dispatch('clickPrevious')}>
-			{#if pickerType === 'start'}
-				<Icon icon="ic:round-navigate-next" width={25} height={25} rotate={2} />
-			{/if}
-		</div>
 		<span>
 			{getMonthName(currentMonth)}
 			{currentYear}
 		</span>
-		{#if pickerType === 'end'}
-			<div class="header__icon header__icon--right" on:click={() => dispatch('clickNext')}>
-				<Icon icon="ic:round-navigate-next" width={25} height={25} />
-			</div>
-		{/if}
 	</header>
 
 	<div class="picker__days">
@@ -144,14 +134,6 @@
 		&__icon {
 			position: absolute;
 		}
-
-		&__icon--right {
-			right: var(--space-xs);
-		}
-
-		&__icon--left {
-			left: var(--space-xs);
-		}
 	}
 
 	.picker {
@@ -163,8 +145,6 @@
 			display: flex;
 			justify-content: space-between;
 		}
-
-		// &__days-item {
-		// }
 	}
+
 </style>

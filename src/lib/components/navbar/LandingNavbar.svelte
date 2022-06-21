@@ -30,9 +30,9 @@
 		// 	href: '/login'
 		// },
 		{
-			name: 'Help',
+			name: 'Contat',
 			icon: 'bx:help-circle',
-			href: '/'
+			href: '/contact'
 		}
 	];
 </script>
@@ -87,6 +87,15 @@
 					height={ICON_PROPS.size}
 				/>
 				<h4>Login</h4>
+			</div>
+			<div href="/login" class="item">
+				<Icon
+					icon="akar-icons:person-add"
+					color="{ICON_PROPS.color}"
+					width={ICON_PROPS.size}
+					height={ICON_PROPS.size}
+				/>
+				<h4>Plan Trip</h4>
 			</div>
 		{/if}
 		<Button style="border" size="small" color="white">Get Started</Button>

@@ -36,7 +36,7 @@
 		box-shadow: var(--shadow-image);
 		z-index: 200;
 	}
-	
+
 	.container {
 		display: flex;
 		justify-content: center;
@@ -116,8 +116,16 @@
 		}
 	}
 
-	
+	@media only screen and (max-width: 768px) {
+		.search {
+			padding: var(--space-2xs);
+		}
+	}
+
 	@media only screen and (max-width: 425px) {
+		.search {
+			width: 100%;
+		}
 		header {
 			.title {
 				font-size: 45px;

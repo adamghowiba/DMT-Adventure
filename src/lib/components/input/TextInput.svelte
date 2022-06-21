@@ -3,17 +3,19 @@
 
 	export let type: 'text' | 'email' | 'date' | 'div' | 'number' = 'text';
 	export let placeholder: string | null = null;
+	export let focusStyle: 'top' | 'inner' | 'none' = placeholder ? 'inner' : 'none';
 	export let name: string;
 	export let value: any = '';
-	export let focusStyle: 'top' | 'inner' | 'none' = placeholder ? 'inner' : 'none';
 	export let required: boolean = false;
-	export let textTransform: 'capitalize' | 'uppercase' | 'none' = 'none';
 	export let autoComplete: boolean = false;
-
-	export let borderRadius = 'var(--br-sm)';
 	export let disabled: boolean = false;
+	export let readonly: boolean = false;
+
+	/* STYLES */
+	export let textTransform: 'capitalize' | 'uppercase' | 'none' = 'none';
 	export let maxWidth: string = 'none';
 	export let width: string = '100%';
+	export let borderRadius = 'var(--br-sm)';
 	export let borderColor: string = 'var(--color-gray-light)';
 
 	let error: boolean = false;
@@ -48,6 +50,7 @@
 			{name}
 			{required}
 			{disabled}
+			{readonly}
 			bind:value
 			on:blur={handleBlur}
 			on:input={handleInput}
@@ -59,15 +62,19 @@
 			{name}
 			{disabled}
 			{required}
+			{readonly}
 			autocomplete={autoComplete ? 'on' : 'off'}
 			bind:value
 		/>
 	{:else if type === 'date'}
 		<input
 			type="date"
+			class:entered={true}
+			class={focusStyle}
 			{name}
 			{disabled}
 			{required}
+			{readonly}
 			autocomplete={autoComplete ? 'on' : 'off'}
 			bind:value
 		/>
@@ -80,6 +87,7 @@
 			{name}
 			{required}
 			{disabled}
+			{readonly}
 			bind:value
 			on:focus
 			on:blur={handleInput}
@@ -127,6 +135,13 @@
 		transition: border 0.1s ease-out;
 		color: var(--color-text-body);
 		border: 1px solid var(--borderColor);
+
+		&:disabled {
+			appearance: none;
+			-webkit-appearance: none;
+			opacity: 1;
+			color: var(--color-text-body);
+		}
 
 		&:focus {
 			border: 1px solid var(--color-primary);
